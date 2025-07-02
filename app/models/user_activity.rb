@@ -9,11 +9,10 @@ class UserActivity < ApplicationRecord
     find_or_create_by(date: today, activity_type: activity_type, activity_id: activity_id)
   end
 
-  # 過去3日分の活動履歴を取得
+  # 過去の活動履歴を取得
   def self.recent_activities(limit = 3)
     where('date >= ?', Date.current - limit.days)
-      .order(date: :desc)
-      .limit(limit)
+      .order(date: :desc, created_at: :desc)
   end
 
   # 過去1ヶ月分の活動履歴を取得

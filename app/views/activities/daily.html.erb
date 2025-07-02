@@ -1,0 +1,69 @@
+<div class="container">
+  <!-- ヘッダー -->
+  <div class="header">
+    <div class="back-buttons">
+      <%= link_to "← 戻る", activities_monthly_path, class: "back-link" %>
+      <%= link_to "← トップに戻る", root_path, class: "back-link top-home" %>
+    </div>
+    <h1 class="app-title"><%= @page_title %></h1>
+    <p class="subtitle"><%= @page_subtitle %></p>
+  </div>
+
+  <!-- 日付表示 -->
+  <div class="date-display">
+    <div class="date-text">
+      <%= @date.strftime("%Y年%m月%d日") %> (<%= %w[日 月 火 水 木 金 土][@date.wday] %>)
+    </div>
+  </div>
+
+  <!-- その日の活動 -->
+  <% if @activities.any? %>
+    <div class="content-card">
+      <div class="card-header">
+        <div class="card-icon">📅</div>
+        <div>
+          <h2 class="card-title">この日の活動</h2>
+          <div class="card-subtitle"><%= @activities.count %>件の活動を記録</div>
+        </div>
+      </div>
+      <div class="card-content">
+        <% @activities.each do |activity| %>
+          <div class="activity-detail-item large">
+            <div class="activity-icon large"><%= activity.activity_icon %></div>
+            <div class="activity-content">
+              <div class="activity-name large"><%= activity.activity_name %></div>
+              <div class="activity-description large"><%= activity.activity_description %></div>
+              <div class="activity-category large"><%= activity.activity_category %></div>
+              <div class="activity-time">
+                <%= activity.created_at.strftime("%H:%M") %>に記録
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <div class="content-card">
+      <div class="card-content">
+        <div class="empty-state">
+          <div class="empty-icon">🌸</div>
+          <div class="empty-text">この日は活動記録がありません</div>
+          <div class="empty-subtext">明日から始めてみましょう！</div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- フッター -->
+  <div class="footer">
+    <div class="footer-text">
+      🌸 毎日の小さな積み重ねが、大きな変化を生み出します 🌸
+    </div>
+  </div>
+
+  <!-- 下部の戻るボタン -->
+  <div class="back-buttons bottom">
+    <%= link_to "← 戻る", activities_monthly_path, class: "back-link" %>
+    <%= link_to "← トップに戻る", root_path, class: "back-link top-home" %>
+  </div>
+</div> 

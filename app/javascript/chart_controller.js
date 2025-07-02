@@ -17,6 +17,19 @@ export default class extends Controller {
       this.renderSummary(data.summary)
     } catch (error) {
       console.error('グラフデータの読み込みに失敗しました:', error)
+      // エラー時のフォールバック表示
+      this.showError()
+    }
+  }
+
+  showError() {
+    if (this.hasSummaryTarget) {
+      this.summaryTarget.innerHTML = `
+        <div class="chart-error">
+          <div class="error-icon">📊</div>
+          <div class="error-text">グラフの読み込みに失敗しました</div>
+        </div>
+      `
     }
   }
 

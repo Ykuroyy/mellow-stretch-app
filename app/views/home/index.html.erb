@@ -71,9 +71,12 @@
           <h2 class="card-title">最近の活動</h2>
           <div class="card-subtitle">過去3日分の記録</div>
         </div>
+        <%= link_to activities_history_path, class: "header-link" do %>
+          📅 過去10日分の詳細を見る →
+        <% end %>
       </div>
       <div class="card-content">
-        <% @recent_activities.group_by(&:date).each do |date, activities| %>
+        <% @recent_activities.group_by(&:date).first(3).each do |date, activities| %>
           <div class="history-day">
             <div class="history-date">
               <%= date.strftime("%m月%d日") %> (<%= %w[日 月 火 水 木 金 土][date.wday] %>)
@@ -93,23 +96,18 @@
     </div>
   <% end %>
 
-  <!-- 1ヶ月の活動グラフ -->
-  <div class="content-card" data-controller="chart">
-    <div class="card-header">
-      <div class="card-icon">📊</div>
-      <div>
-        <h2 class="card-title">1ヶ月の活動記録</h2>
-        <div class="card-subtitle">過去30日間の継続状況</div>
+  <!-- 1ヶ月の活動記録ボタン -->
+  <div class="monthly-button-container">
+    <%= link_to activities_monthly_path, class: "monthly-button" do %>
+      <div class="monthly-button-content">
+        <div class="monthly-button-icon">📊</div>
+        <div class="monthly-button-text">
+          <div class="monthly-button-title">1ヶ月の活動記録</div>
+          <div class="monthly-button-subtitle">過去30日間の継続状況</div>
+        </div>
+        <div class="monthly-button-arrow">→</div>
       </div>
-    </div>
-    <div class="card-content">
-      <div class="chart-summary" data-chart-target="summary">
-        <!-- 統計サマリーがここに表示されます -->
-      </div>
-      <div class="chart-container">
-        <canvas data-chart-target="canvas" width="400" height="200"></canvas>
-      </div>
-    </div>
+    <% end %>
   </div>
 
   <!-- フッター -->

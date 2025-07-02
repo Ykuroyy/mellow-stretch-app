@@ -10,6 +10,9 @@ class HomeController < ApplicationController
     
     # 過去の活動履歴を取得
     @recent_activities = get_recent_activities
+    
+    # 月別統計データを取得（グラフ用）
+    @monthly_stats = UserActivity.monthly_stats
   end
 
   private

@@ -1,0 +1,96 @@
+<div class="container">
+  <!-- ヘッダー -->
+  <div class="header">
+    <div class="back-button">
+      <%= link_to "← 戻る", root_path, class: "back-link" %>
+    </div>
+    <h1 class="app-title">1ヶ月の活動記録</h1>
+    <p class="subtitle">過去30日間の継続状況</p>
+  </div>
+
+  <!-- 統計サマリー -->
+  <div class="content-card">
+    <div class="card-header">
+      <div class="card-icon">📊</div>
+      <div>
+        <h2 class="card-title">今月の統計</h2>
+        <div class="card-subtitle">活動の振り返り</div>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="monthly-summary-grid">
+        <div class="summary-item">
+          <div class="summary-number"><%= @monthly_stats.count { |_, data| data[:total] > 0 } %></div>
+          <div class="summary-label">活動日数</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-number"><%= @monthly_stats.values.sum { |data| data[:total] } %></div>
+          <div class="summary-label">総活動回数</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-number"><%= @monthly_stats.values.sum { |data| data[:stretch] } %></div>
+          <div class="summary-label">ストレッチ回数</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-number"><%= @monthly_stats.values.sum { |data| data[:breathing] } %></div>
+          <div class="summary-label">呼吸法回数</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 日別詳細 -->
+  <div class="content-card">
+    <div class="card-header">
+      <div class="card-icon">📅</div>
+      <div>
+        <h2 class="card-title">日別活動記録</h2>
+        <div class="card-subtitle">過去30日間の詳細</div>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="monthly-detail-grid">
+        <% @monthly_stats.each do |date, data| %>
+          <% if data[:total] > 0 %>
+            <%= link_to activities_daily_path(date.strftime("%Y-%m-%d")), class: "daily-summary-item has-activity clickable-daily" do %>
+              <div class="daily-date">
+                <%= date.strftime("%m/%d") %>
+              </div>
+              <div class="daily-activities">
+                <% if data[:stretch] > 0 %>
+                  <span class="activity-badge stretch-badge">🧘‍♀️</span>
+                <% end %>
+                <% if data[:breathing] > 0 %>
+                  <span class="activity-badge breathing-badge">💨</span>
+                <% end %>
+              </div>
+              <div class="daily-count">
+                <%= data[:total] %>回
+              </div>
+            <% end %>
+          <% else %>
+            <div class="daily-summary-item no-activity">
+              <div class="daily-date">
+                <%= date.strftime("%m/%d") %>
+              </div>
+              <div class="daily-activities">
+              </div>
+              <div class="daily-count">
+                0回
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <div class="footer">
+    <div class="footer-text">
+      🌸 小さな積み重ねが、大きな変化を生み出します 🌸
+    </div>
+  </div>
+
+
+</div>
