@@ -240,3 +240,31 @@ puts "シードデータの作成が完了しました！"
 puts "ストレッチ: #{Stretch.count}件"
 puts "呼吸法: #{BreathingExercise.count}件"
 puts "メッセージ: #{DailyMessage.count}件"
+
+# 過去の活動データを作成（テスト用）
+puts "過去の活動データを作成中..."
+
+# 過去30日分の活動データを作成（グラフ表示用）
+puts "過去30日分の活動データを作成中..."
+
+(1..30).each do |days_ago|
+  date = Date.current - days_ago.days
+  
+  # その日のストレッチと呼吸法を決定（日付ベースのランダム）
+  srand(date.to_time.to_i)
+  stretch = Stretch.all.sample
+  
+  srand(date.to_time.to_i + 1000)
+  breathing = BreathingExercise.all.sample
+  
+  # 活動を記録（80%の確率で記録、より現実的なデータに）
+  if rand < 0.8
+    UserActivity.find_or_create_by!(date: date, activity_type: 'stretch', activity_id: stretch.id)
+  end
+  
+  if rand < 0.8
+    UserActivity.find_or_create_by!(date: date, activity_type: 'breathing', activity_id: breathing.id)
+  end
+end
+
+puts "過去の活動データ: #{UserActivity.count}件"

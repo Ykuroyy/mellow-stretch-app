@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   # API endpoints for daily activities
   get "api/today" => "api#today"
   get "api/history" => "api#history"
+  get "api/monthly_stats" => "api#monthly_stats"
 end

@@ -4,6 +4,11 @@ class HomeController < ApplicationController
     @stretch = get_todays_stretch
     @breathing = get_todays_breathing
     @message = get_todays_message
+    
+    # 今日の活動を記録
+    record_todays_activities
+    
+    # 過去の活動履歴を取得
     @recent_activities = get_recent_activities
   end
 
@@ -27,8 +32,14 @@ class HomeController < ApplicationController
     DailyMessage.all.sample
   end
 
+  def record_todays_activities
+    # 今日のストレッチと呼吸法を記録
+    UserActivity.record_today_activity('stretch', @stretch.id)
+    UserActivity.record_today_activity('breathing', @breathing.id)
+  end
+
   def get_recent_activities
-    # 過去3日分の活動履歴を取得（実際の実装ではUserActivityテーブルを使用）
-    []
+    # 過去3日分の活動履歴を取得
+    UserActivity.recent_activities(3)
   end
 end
