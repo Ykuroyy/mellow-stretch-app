@@ -1,0 +1,2 @@
+class BreathingExercise < ApplicationRecord
+end

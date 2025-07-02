@@ -1,0 +1,2 @@
+class DailyMessage < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class Stretch < ApplicationRecord
+end

@@ -1,0 +1,99 @@
+<div class="container">
+  <!-- ヘッダー -->
+  <div class="header">
+    <h1 class="app-title">朝ストレッチ・美呼吸</h1>
+    <p class="subtitle">今日のあなたにぴったりの癒し時間</p>
+  </div>
+
+  <!-- 日付表示 -->
+  <div class="date-display">
+    <div class="date-text">
+      <%= @today.strftime("%Y年%m月%d日") %> (<%= %w[日 月 火 水 木 金 土][@today.wday] %>)
+    </div>
+  </div>
+
+  <!-- 今日のストレッチ -->
+  <div class="content-card">
+    <div class="card-header">
+      <div class="card-icon stretch-icon">🧘‍♀️</div>
+      <div>
+        <h2 class="card-title">今日のストレッチ</h2>
+        <div class="card-subtitle"><%= @stretch.category %></div>
+      </div>
+    </div>
+    <div class="card-content">
+      <h3><%= @stretch.name %></h3>
+      <p><%= @stretch.description %></p>
+      <div class="duration-badge">約<%= @stretch.duration %>分</div>
+      <span class="category-badge"><%= @stretch.difficulty %></span>
+    </div>
+  </div>
+
+  <!-- 今日の呼吸法 -->
+  <div class="content-card">
+    <div class="card-header">
+      <div class="card-icon breathing-icon">💨</div>
+      <div>
+        <h2 class="card-title">今日の呼吸法</h2>
+        <div class="card-subtitle"><%= @breathing.benefit %></div>
+      </div>
+    </div>
+    <div class="card-content">
+      <h3><%= @breathing.name %></h3>
+      <p><%= @breathing.description %></p>
+      <div class="duration-badge">約<%= @breathing.duration %>分</div>
+      <span class="category-badge"><%= @breathing.technique %></span>
+    </div>
+  </div>
+
+  <!-- 今日のメッセージ -->
+  <div class="content-card message-card">
+    <div class="card-header">
+      <div class="card-icon message-icon">💝</div>
+      <div>
+        <h2 class="card-title">今日のメッセージ</h2>
+        <div class="card-subtitle"><%= @message.category %></div>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="message-text">
+        <%= @message.message %>
+      </div>
+    </div>
+  </div>
+
+  <!-- 過去の履歴（3日分） -->
+  <% if @recent_activities.any? %>
+    <div class="content-card">
+      <div class="card-header">
+        <div class="card-icon">📅</div>
+        <div>
+          <h2 class="card-title">最近の活動</h2>
+          <div class="card-subtitle">過去3日分</div>
+        </div>
+      </div>
+      <div class="card-content">
+        <% @recent_activities.each do |activity| %>
+          <div style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+            <strong><%= activity.date.strftime("%m/%d") %></strong>: <%= activity.activity_type %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- フッター -->
+  <div class="footer">
+    <div class="footer-text">
+      🌸 毎朝5分で、美しい習慣を始めましょう 🌸
+    </div>
+    <div class="footer-text">
+      あなたのペースで、無理せず続けることが大切です
+    </div>
+    <div class="social-links">
+      <a href="#" class="social-link">💕</a>
+      <a href="#" class="social-link">🌸</a>
+      <a href="#" class="social-link">✨</a>
+    </div>
+  </div>
+</div>
