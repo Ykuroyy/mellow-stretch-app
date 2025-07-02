@@ -4012,3 +4012,769 @@ Processing by HomeController#index as HTML
 Completed 200 OK in 25ms (Views: 10.3ms | ActiveRecord: 3.4ms | Allocations: 12029)
 
 
+  [1m[36mActiveRecord::SchemaMigration Load (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (39.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "mellow_stretch_app_development"[0m
+  [1m[35m (20.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS "mellow_stretch_app_test"[0m
+  [1m[35m (92.8ms)[0m  [1m[35mCREATE DATABASE "mellow_stretch_app_development" ENCODING = 'unicode'[0m
+  [1m[35m (38.8ms)[0m  [1m[35mCREATE DATABASE "mellow_stretch_app_test" ENCODING = 'unicode'[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5321588654200831005)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-07-02 23:28:57.561719', '2025-07-02 23:28:57.561721') RETURNING "key"[0m
+Migrating to CreateStretches (20250702213516)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "stretches" ("id" bigserial primary key, "name" character varying, "description" text, "category" character varying, "duration" integer, "difficulty" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250702213516') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateBreathingExercises (20250702213519)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE "breathing_exercises" ("id" bigserial primary key, "name" character varying, "description" text, "technique" character varying, "duration" integer, "benefit" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250702213519') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDailyMessages (20250702213531)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "daily_messages" ("id" bigserial primary key, "message" text, "category" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250702213531') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUserActivities (20250702213540)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "user_activities" ("id" bigserial primary key, "date" date, "activity_type" character varying, "activity_id" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250702213540') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5321588654200831005)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."name" = $1 LIMIT $2[0m  [["name", "肩こり解消肩回し"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStretch Create (0.2ms)[0m  [1m[32mINSERT INTO "stretches" ("name", "description", "category", "duration", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "肩こり解消肩回し"], ["description", "両肩を大きく回して、一日の疲れをリセット。ゆっくりと10回ずつ前回し、後ろ回しをしましょう。"], ["category", "肩・首"], ["duration", 3], ["difficulty", "初級"], ["created_at", "2025-07-02 23:28:57.602131"], ["updated_at", "2025-07-02 23:28:57.602131"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."name" = $1 LIMIT $2[0m  [["name", "お腹ひねりストレッチ"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStretch Create (0.5ms)[0m  [1m[32mINSERT INTO "stretches" ("name", "description", "category", "duration", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "お腹ひねりストレッチ"], ["description", "座ったまま、上半身を左右にひねってウエストをすっきり。呼吸を意識しながらゆっくりと。"], ["category", "ウエスト"], ["duration", 2], ["difficulty", "初級"], ["created_at", "2025-07-02 23:28:57.603864"], ["updated_at", "2025-07-02 23:28:57.603864"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."name" = $1 LIMIT $2[0m  [["name", "寝起きの太陽礼拝（簡易）"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStretch Create (0.3ms)[0m  [1m[32mINSERT INTO "stretches" ("name", "description", "category", "duration", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "寝起きの太陽礼拝（簡易）"], ["description", "朝の太陽に向かって手を合わせ、全身を伸ばして一日のエネルギーをチャージ。"], ["category", "全身"], ["duration", 5], ["difficulty", "初級"], ["created_at", "2025-07-02 23:28:57.605262"], ["updated_at", "2025-07-02 23:28:57.605262"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."name" = $1 LIMIT $2[0m  [["name", "足首まわし"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStretch Create (0.3ms)[0m  [1m[32mINSERT INTO "stretches" ("name", "description", "category", "duration", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "足首まわし"], ["description", "座ったまま足首をゆっくり回して、むくみを解消。左右それぞれ10回ずつ。"], ["category", "足"], ["duration", 2], ["difficulty", "初級"], ["created_at", "2025-07-02 23:28:57.606620"], ["updated_at", "2025-07-02 23:28:57.606620"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."name" = $1 LIMIT $2[0m  [["name", "壁を使った背筋ストレッチ"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStretch Create (0.4ms)[0m  [1m[32mINSERT INTO "stretches" ("name", "description", "category", "duration", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "壁を使った背筋ストレッチ"], ["description", "壁に手をついて、背中を伸ばして姿勢を整える。美しい背筋ラインを作りましょう。"], ["category", "背中"], ["duration", 3], ["difficulty", "初級"], ["created_at", "2025-07-02 23:28:57.607976"], ["updated_at", "2025-07-02 23:28:57.607976"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."name" = $1 LIMIT $2[0m  [["name", "猫のポーズ"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStretch Create (0.3ms)[0m  [1m[32mINSERT INTO "stretches" ("name", "description", "category", "duration", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "猫のポーズ"], ["description", "四つん這いになって、背中を丸めたり反らしたり。背骨を柔らかくします。"], ["category", "背中"], ["duration", 2], ["difficulty", "初級"], ["created_at", "2025-07-02 23:28:57.609314"], ["updated_at", "2025-07-02 23:28:57.609314"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."name" = $1 LIMIT $2[0m  [["name", "腰回し"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStretch Create (0.5ms)[0m  [1m[32mINSERT INTO "stretches" ("name", "description", "category", "duration", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "腰回し"], ["description", "立ったまま腰をゆっくり回して、骨盤の動きをスムーズに。左右それぞれ5回ずつ。"], ["category", "腰"], ["duration", 3], ["difficulty", "初級"], ["created_at", "2025-07-02 23:28:57.610680"], ["updated_at", "2025-07-02 23:28:57.610680"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."name" = $1 LIMIT $2[0m  [["name", "腕伸ばし"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStretch Create (0.6ms)[0m  [1m[32mINSERT INTO "stretches" ("name", "description", "category", "duration", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "腕伸ばし"], ["description", "両腕を上に伸ばして、体側も一緒に伸ばす。すっきりとした上半身を作りましょう。"], ["category", "腕・胸"], ["duration", 2], ["difficulty", "初級"], ["created_at", "2025-07-02 23:28:57.612376"], ["updated_at", "2025-07-02 23:28:57.612376"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."name" = $1 LIMIT $2[0m  [["name", "首回し"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStretch Create (0.3ms)[0m  [1m[32mINSERT INTO "stretches" ("name", "description", "category", "duration", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "首回し"], ["description", "首をゆっくり回して、緊張をほぐす。朝の目覚めをスッキリさせます。"], ["category", "首"], ["duration", 2], ["difficulty", "初級"], ["created_at", "2025-07-02 23:28:57.614081"], ["updated_at", "2025-07-02 23:28:57.614081"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."name" = $1 LIMIT $2[0m  [["name", "深呼吸ストレッチ"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStretch Create (0.3ms)[0m  [1m[32mINSERT INTO "stretches" ("name", "description", "category", "duration", "difficulty", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "深呼吸ストレッチ"], ["description", "大きく息を吸いながら腕を上げ、吐きながら下ろす。心も体もリフレッシュ。"], ["category", "全身"], ["duration", 3], ["difficulty", "初級"], ["created_at", "2025-07-02 23:28:57.615271"], ["updated_at", "2025-07-02 23:28:57.615271"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."name" = $1 LIMIT $2[0m  [["name", "腹式呼吸（4-4-4）"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBreathingExercise Create (0.1ms)[0m  [1m[32mINSERT INTO "breathing_exercises" ("name", "description", "technique", "duration", "benefit", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "腹式呼吸（4-4-4）"], ["description", "4秒かけて息を吸い、4秒止めて、4秒かけて吐く。心を落ち着かせる基本の呼吸法。"], ["technique", "4-4-4呼吸法"], ["duration", 3], ["benefit", "リラックス効果"], ["created_at", "2025-07-02 23:28:57.619379"], ["updated_at", "2025-07-02 23:28:57.619379"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."name" = $1 LIMIT $2[0m  [["name", "鼻呼吸だけでリラックス"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBreathingExercise Create (0.3ms)[0m  [1m[32mINSERT INTO "breathing_exercises" ("name", "description", "technique", "duration", "benefit", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "鼻呼吸だけでリラックス"], ["description", "口を閉じて鼻だけで呼吸。ゆっくりと深く、心を静める呼吸を意識しましょう。"], ["technique", "鼻呼吸"], ["duration", 2], ["benefit", "集中力向上"], ["created_at", "2025-07-02 23:28:57.620472"], ["updated_at", "2025-07-02 23:28:57.620472"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."name" = $1 LIMIT $2[0m  [["name", "口をすぼめて細く長く吐く呼吸"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBreathingExercise Create (0.3ms)[0m  [1m[32mINSERT INTO "breathing_exercises" ("name", "description", "technique", "duration", "benefit", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "口をすぼめて細く長く吐く呼吸"], ["description", "口をすぼめて、ろうそくの火を消すように細く長く息を吐く。肺をしっかりと空にします。"], ["technique", "口すぼめ呼吸"], ["duration", 2], ["benefit", "肺機能向上"], ["created_at", "2025-07-02 23:28:57.621680"], ["updated_at", "2025-07-02 23:28:57.621680"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."name" = $1 LIMIT $2[0m  [["name", "1分マインドフルネス呼吸"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBreathingExercise Create (0.3ms)[0m  [1m[32mINSERT INTO "breathing_exercises" ("name", "description", "technique", "duration", "benefit", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "1分マインドフルネス呼吸"], ["description", "呼吸に意識を向けて、今この瞬間に集中。心の雑念を手放しましょう。"], ["technique", "マインドフルネス"], ["duration", 1], ["benefit", "ストレス軽減"], ["created_at", "2025-07-02 23:28:57.622858"], ["updated_at", "2025-07-02 23:28:57.622858"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."name" = $1 LIMIT $2[0m  [["name", "朝の活力呼吸"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBreathingExercise Create (0.3ms)[0m  [1m[32mINSERT INTO "breathing_exercises" ("name", "description", "technique", "duration", "benefit", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "朝の活力呼吸"], ["description", "朝日を浴びながら、大きく息を吸って新しい一日のエネルギーをチャージ。"], ["technique", "朝活呼吸"], ["duration", 3], ["benefit", "活力向上"], ["created_at", "2025-07-02 23:28:57.624080"], ["updated_at", "2025-07-02 23:28:57.624080"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."name" = $1 LIMIT $2[0m  [["name", "美肌呼吸"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBreathingExercise Create (0.3ms)[0m  [1m[32mINSERT INTO "breathing_exercises" ("name", "description", "technique", "duration", "benefit", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "美肌呼吸"], ["description", "顔の筋肉をリラックスさせながら、美しさを内側から育てる呼吸法。"], ["technique", "美肌呼吸"], ["duration", 2], ["benefit", "美容効果"], ["created_at", "2025-07-02 23:28:57.626901"], ["updated_at", "2025-07-02 23:28:57.626901"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."name" = $1 LIMIT $2[0m  [["name", "肩の力を抜く呼吸"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBreathingExercise Create (0.3ms)[0m  [1m[32mINSERT INTO "breathing_exercises" ("name", "description", "technique", "duration", "benefit", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "肩の力を抜く呼吸"], ["description", "肩の力を抜いて、緊張をほぐす呼吸。一日の疲れをリセットします。"], ["technique", "脱力呼吸"], ["duration", 2], ["benefit", "緊張緩和"], ["created_at", "2025-07-02 23:28:57.628390"], ["updated_at", "2025-07-02 23:28:57.628390"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."name" = $1 LIMIT $2[0m  [["name", "心のバランス呼吸"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBreathingExercise Create (0.3ms)[0m  [1m[32mINSERT INTO "breathing_exercises" ("name", "description", "technique", "duration", "benefit", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "心のバランス呼吸"], ["description", "左右の鼻の穴を交互に使って、心身のバランスを整える呼吸法。"], ["technique", "交代鼻呼吸"], ["duration", 3], ["benefit", "バランス調整"], ["created_at", "2025-07-02 23:28:57.629791"], ["updated_at", "2025-07-02 23:28:57.629791"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."name" = $1 LIMIT $2[0m  [["name", "感謝の呼吸"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBreathingExercise Create (0.3ms)[0m  [1m[32mINSERT INTO "breathing_exercises" ("name", "description", "technique", "duration", "benefit", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "感謝の呼吸"], ["description", "感謝の気持ちを込めて呼吸。心が温かくなる呼吸法です。"], ["technique", "感謝呼吸"], ["duration", 2], ["benefit", "心の安定"], ["created_at", "2025-07-02 23:28:57.631281"], ["updated_at", "2025-07-02 23:28:57.631281"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."name" = $1 LIMIT $2[0m  [["name", "夜の安らぎ呼吸"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBreathingExercise Create (0.3ms)[0m  [1m[32mINSERT INTO "breathing_exercises" ("name", "description", "technique", "duration", "benefit", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "夜の安らぎ呼吸"], ["description", "一日の終わりに、心を落ち着かせる深い呼吸。安らかな眠りを誘います。"], ["technique", "安らぎ呼吸"], ["duration", 3], ["benefit", "安眠効果"], ["created_at", "2025-07-02 23:28:57.632578"], ["updated_at", "2025-07-02 23:28:57.632578"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.1ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "美は1日にして成らず。今日も一歩ずつ、美しい自分に向かって。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.1ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "美は1日にして成らず。今日も一歩ずつ、美しい自分に向かって。"], ["category", "応援"], ["created_at", "2025-07-02 23:28:57.636799"], ["updated_at", "2025-07-02 23:28:57.636799"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "朝の5分が、あなたの一日を変える。今日も素敵な一日を。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.5ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "朝の5分が、あなたの一日を変える。今日も素敵な一日を。"], ["category", "励まし"], ["created_at", "2025-07-02 23:28:57.637855"], ["updated_at", "2025-07-02 23:28:57.637855"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "呼吸は命のリズム。今日も丁寧に呼吸して、心を整えましょう。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.3ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "呼吸は命のリズム。今日も丁寧に呼吸して、心を整えましょう。"], ["category", "癒し"], ["created_at", "2025-07-02 23:28:57.639253"], ["updated_at", "2025-07-02 23:28:57.639253"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "昨日のあなた、えらい！今日も頑張らなくてOK。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.3ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "昨日のあなた、えらい！今日も頑張らなくてOK。"], ["category", "褒め"], ["created_at", "2025-07-02 23:28:57.640540"], ["updated_at", "2025-07-02 23:28:57.640540"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "忙しい朝に、ちょっとだけ自分時間。あなたのペースで。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.3ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "忙しい朝に、ちょっとだけ自分時間。あなたのペースで。"], ["category", "優しさ"], ["created_at", "2025-07-02 23:28:57.641921"], ["updated_at", "2025-07-02 23:28:57.641921"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "体が喜ぶことを、今日も一つ。小さな積み重ねが大きな変化を。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.3ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "体が喜ぶことを、今日も一つ。小さな積み重ねが大きな変化を。"], ["category", "気づき"], ["created_at", "2025-07-02 23:28:57.643229"], ["updated_at", "2025-07-02 23:28:57.643229"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "深呼吸で、新しい一日の扉を開けましょう。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.3ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "深呼吸で、新しい一日の扉を開けましょう。"], ["category", "希望"], ["created_at", "2025-07-02 23:28:57.644437"], ["updated_at", "2025-07-02 23:28:57.644437"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "あなたの体は、あなたの味方。今日も大切に扱いましょう。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.3ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "あなたの体は、あなたの味方。今日も大切に扱いましょう。"], ["category", "愛"], ["created_at", "2025-07-02 23:28:57.645664"], ["updated_at", "2025-07-02 23:28:57.645664"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "朝の光と一緒に、心も体も目覚めさせて。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.4ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "朝の光と一緒に、心も体も目覚めさせて。"], ["category", "活力"], ["created_at", "2025-07-02 23:28:57.646685"], ["updated_at", "2025-07-02 23:28:57.646685"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "今日も、あなたらしく。無理せず、でも諦めずに。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (1.9ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "今日も、あなたらしく。無理せず、でも諦めずに。"], ["category", "応援"], ["created_at", "2025-07-02 23:28:57.649025"], ["updated_at", "2025-07-02 23:28:57.649025"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "呼吸に集中する時間は、自分と向き合う時間。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.4ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "呼吸に集中する時間は、自分と向き合う時間。"], ["category", "内省"], ["created_at", "2025-07-02 23:28:57.662758"], ["updated_at", "2025-07-02 23:28:57.662758"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "小さな習慣が、大きな変化を生む。今日も続けましょう。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.3ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "小さな習慣が、大きな変化を生む。今日も続けましょう。"], ["category", "継続"], ["created_at", "2025-07-02 23:28:57.664092"], ["updated_at", "2025-07-02 23:28:57.664092"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "体を動かすことは、心を動かすこと。今日も軽やかに。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.7ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "体を動かすことは、心を動かすこと。今日も軽やかに。"], ["category", "軽やか"], ["created_at", "2025-07-02 23:28:57.665453"], ["updated_at", "2025-07-02 23:28:57.665453"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "朝の静寂の中で、自分の声を聞いてみて。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.8ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "朝の静寂の中で、自分の声を聞いてみて。"], ["category", "静寂"], ["created_at", "2025-07-02 23:28:57.667215"], ["updated_at", "2025-07-02 23:28:57.667215"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDailyMessage Load (0.0ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages" WHERE "daily_messages"."message" = $1 LIMIT $2[0m  [["message", "今日も、あなたのペースで。焦らず、でも止まらずに。"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDailyMessage Create (0.3ms)[0m  [1m[32mINSERT INTO "daily_messages" ("message", "category", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "今日も、あなたのペースで。焦らず、でも止まらずに。"], ["category", "ペース"], ["created_at", "2025-07-02 23:28:57.668849"], ["updated_at", "2025-07-02 23:28:57.668849"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "stretches"[0m
+  [1m[36mBreathingExercise Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "breathing_exercises"[0m
+  [1m[36mDailyMessage Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "daily_messages"[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.1ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-07-01"], ["activity_type", "breathing"], ["activity_id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.1ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-07-01"], ["activity_type", "breathing"], ["activity_id", 6], ["created_at", "2025-07-02 23:28:57.675487"], ["updated_at", "2025-07-02 23:28:57.675487"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-30"], ["activity_type", "stretch"], ["activity_id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-30"], ["activity_type", "stretch"], ["activity_id", 3], ["created_at", "2025-07-02 23:28:57.677524"], ["updated_at", "2025-07-02 23:28:57.677524"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-30"], ["activity_type", "breathing"], ["activity_id", 9], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.4ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-30"], ["activity_type", "breathing"], ["activity_id", 9], ["created_at", "2025-07-02 23:28:57.678757"], ["updated_at", "2025-07-02 23:28:57.678757"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-29"], ["activity_type", "stretch"], ["activity_id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-29"], ["activity_type", "stretch"], ["activity_id", 7], ["created_at", "2025-07-02 23:28:57.680746"], ["updated_at", "2025-07-02 23:28:57.680746"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-29"], ["activity_type", "breathing"], ["activity_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.4ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-29"], ["activity_type", "breathing"], ["activity_id", 1], ["created_at", "2025-07-02 23:28:57.682080"], ["updated_at", "2025-07-02 23:28:57.682080"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.2ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-28"], ["activity_type", "stretch"], ["activity_id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.4ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-28"], ["activity_type", "stretch"], ["activity_id", 10], ["created_at", "2025-07-02 23:28:57.685417"], ["updated_at", "2025-07-02 23:28:57.685417"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-28"], ["activity_type", "breathing"], ["activity_id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-28"], ["activity_type", "breathing"], ["activity_id", 3], ["created_at", "2025-07-02 23:28:57.687224"], ["updated_at", "2025-07-02 23:28:57.687224"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-27"], ["activity_type", "stretch"], ["activity_id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-27"], ["activity_type", "stretch"], ["activity_id", 3], ["created_at", "2025-07-02 23:28:57.689574"], ["updated_at", "2025-07-02 23:28:57.689574"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-25"], ["activity_type", "stretch"], ["activity_id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.4ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-25"], ["activity_type", "stretch"], ["activity_id", 10], ["created_at", "2025-07-02 23:28:57.693879"], ["updated_at", "2025-07-02 23:28:57.693879"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-25"], ["activity_type", "breathing"], ["activity_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.4ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-25"], ["activity_type", "breathing"], ["activity_id", 1], ["created_at", "2025-07-02 23:28:57.695669"], ["updated_at", "2025-07-02 23:28:57.695669"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-24"], ["activity_type", "stretch"], ["activity_id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-24"], ["activity_type", "stretch"], ["activity_id", 4], ["created_at", "2025-07-02 23:28:57.698024"], ["updated_at", "2025-07-02 23:28:57.698024"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-24"], ["activity_type", "breathing"], ["activity_id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-24"], ["activity_type", "breathing"], ["activity_id", 4], ["created_at", "2025-07-02 23:28:57.699308"], ["updated_at", "2025-07-02 23:28:57.699308"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-23"], ["activity_type", "stretch"], ["activity_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.4ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-23"], ["activity_type", "stretch"], ["activity_id", 1], ["created_at", "2025-07-02 23:28:57.701540"], ["updated_at", "2025-07-02 23:28:57.701540"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-23"], ["activity_type", "breathing"], ["activity_id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-23"], ["activity_type", "breathing"], ["activity_id", 7], ["created_at", "2025-07-02 23:28:57.702856"], ["updated_at", "2025-07-02 23:28:57.702856"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-22"], ["activity_type", "stretch"], ["activity_id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-22"], ["activity_type", "stretch"], ["activity_id", 10], ["created_at", "2025-07-02 23:28:57.704795"], ["updated_at", "2025-07-02 23:28:57.704795"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-22"], ["activity_type", "breathing"], ["activity_id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-22"], ["activity_type", "breathing"], ["activity_id", 10], ["created_at", "2025-07-02 23:28:57.706076"], ["updated_at", "2025-07-02 23:28:57.706076"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-21"], ["activity_type", "stretch"], ["activity_id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.5ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-21"], ["activity_type", "stretch"], ["activity_id", 5], ["created_at", "2025-07-02 23:28:57.708487"], ["updated_at", "2025-07-02 23:28:57.708487"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-20"], ["activity_type", "stretch"], ["activity_id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.4ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-20"], ["activity_type", "stretch"], ["activity_id", 3], ["created_at", "2025-07-02 23:28:57.711093"], ["updated_at", "2025-07-02 23:28:57.711093"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-20"], ["activity_type", "breathing"], ["activity_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-20"], ["activity_type", "breathing"], ["activity_id", 1], ["created_at", "2025-07-02 23:28:57.712637"], ["updated_at", "2025-07-02 23:28:57.712637"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-19"], ["activity_type", "stretch"], ["activity_id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.4ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-19"], ["activity_type", "stretch"], ["activity_id", 5], ["created_at", "2025-07-02 23:28:57.714588"], ["updated_at", "2025-07-02 23:28:57.714588"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-19"], ["activity_type", "breathing"], ["activity_id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-19"], ["activity_type", "breathing"], ["activity_id", 10], ["created_at", "2025-07-02 23:28:57.715724"], ["updated_at", "2025-07-02 23:28:57.715724"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-18"], ["activity_type", "stretch"], ["activity_id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-18"], ["activity_type", "stretch"], ["activity_id", 7], ["created_at", "2025-07-02 23:28:57.718246"], ["updated_at", "2025-07-02 23:28:57.718246"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-18"], ["activity_type", "breathing"], ["activity_id", 8], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-18"], ["activity_type", "breathing"], ["activity_id", 8], ["created_at", "2025-07-02 23:28:57.719775"], ["updated_at", "2025-07-02 23:28:57.719775"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-17"], ["activity_type", "stretch"], ["activity_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-17"], ["activity_type", "stretch"], ["activity_id", 1], ["created_at", "2025-07-02 23:28:57.722310"], ["updated_at", "2025-07-02 23:28:57.722310"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-16"], ["activity_type", "stretch"], ["activity_id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-16"], ["activity_type", "stretch"], ["activity_id", 4], ["created_at", "2025-07-02 23:28:57.724210"], ["updated_at", "2025-07-02 23:28:57.724210"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-16"], ["activity_type", "breathing"], ["activity_id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-16"], ["activity_type", "breathing"], ["activity_id", 7], ["created_at", "2025-07-02 23:28:57.725699"], ["updated_at", "2025-07-02 23:28:57.725699"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-15"], ["activity_type", "stretch"], ["activity_id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-15"], ["activity_type", "stretch"], ["activity_id", 6], ["created_at", "2025-07-02 23:28:57.728006"], ["updated_at", "2025-07-02 23:28:57.728006"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-15"], ["activity_type", "breathing"], ["activity_id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-15"], ["activity_type", "breathing"], ["activity_id", 10], ["created_at", "2025-07-02 23:28:57.729287"], ["updated_at", "2025-07-02 23:28:57.729287"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-14"], ["activity_type", "stretch"], ["activity_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-14"], ["activity_type", "stretch"], ["activity_id", 1], ["created_at", "2025-07-02 23:28:57.731150"], ["updated_at", "2025-07-02 23:28:57.731150"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-14"], ["activity_type", "breathing"], ["activity_id", 9], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-14"], ["activity_type", "breathing"], ["activity_id", 9], ["created_at", "2025-07-02 23:28:57.732443"], ["updated_at", "2025-07-02 23:28:57.732443"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-13"], ["activity_type", "stretch"], ["activity_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-13"], ["activity_type", "stretch"], ["activity_id", 1], ["created_at", "2025-07-02 23:28:57.734522"], ["updated_at", "2025-07-02 23:28:57.734522"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-13"], ["activity_type", "breathing"], ["activity_id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-13"], ["activity_type", "breathing"], ["activity_id", 6], ["created_at", "2025-07-02 23:28:57.735812"], ["updated_at", "2025-07-02 23:28:57.735812"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-12"], ["activity_type", "stretch"], ["activity_id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-12"], ["activity_type", "stretch"], ["activity_id", 5], ["created_at", "2025-07-02 23:28:57.737761"], ["updated_at", "2025-07-02 23:28:57.737761"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-12"], ["activity_type", "breathing"], ["activity_id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-12"], ["activity_type", "breathing"], ["activity_id", 4], ["created_at", "2025-07-02 23:28:57.739031"], ["updated_at", "2025-07-02 23:28:57.739031"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-11"], ["activity_type", "stretch"], ["activity_id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.4ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-11"], ["activity_type", "stretch"], ["activity_id", 3], ["created_at", "2025-07-02 23:28:57.741213"], ["updated_at", "2025-07-02 23:28:57.741213"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-10"], ["activity_type", "stretch"], ["activity_id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-10"], ["activity_type", "stretch"], ["activity_id", 5], ["created_at", "2025-07-02 23:28:57.743473"], ["updated_at", "2025-07-02 23:28:57.743473"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-10"], ["activity_type", "breathing"], ["activity_id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-10"], ["activity_type", "breathing"], ["activity_id", 10], ["created_at", "2025-07-02 23:28:57.744937"], ["updated_at", "2025-07-02 23:28:57.744937"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-09"], ["activity_type", "stretch"], ["activity_id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-09"], ["activity_type", "stretch"], ["activity_id", 3], ["created_at", "2025-07-02 23:28:57.746985"], ["updated_at", "2025-07-02 23:28:57.746985"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-09"], ["activity_type", "breathing"], ["activity_id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.4ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-09"], ["activity_type", "breathing"], ["activity_id", 5], ["created_at", "2025-07-02 23:28:57.748280"], ["updated_at", "2025-07-02 23:28:57.748280"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-08"], ["activity_type", "stretch"], ["activity_id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-08"], ["activity_type", "stretch"], ["activity_id", 2], ["created_at", "2025-07-02 23:28:57.750461"], ["updated_at", "2025-07-02 23:28:57.750461"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-08"], ["activity_type", "breathing"], ["activity_id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-08"], ["activity_type", "breathing"], ["activity_id", 4], ["created_at", "2025-07-02 23:28:57.751562"], ["updated_at", "2025-07-02 23:28:57.751562"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-06"], ["activity_type", "stretch"], ["activity_id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-06"], ["activity_type", "stretch"], ["activity_id", 6], ["created_at", "2025-07-02 23:28:57.753833"], ["updated_at", "2025-07-02 23:28:57.753833"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-06"], ["activity_type", "breathing"], ["activity_id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-06"], ["activity_type", "breathing"], ["activity_id", 10], ["created_at", "2025-07-02 23:28:57.755029"], ["updated_at", "2025-07-02 23:28:57.755029"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-05"], ["activity_type", "stretch"], ["activity_id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-05"], ["activity_type", "stretch"], ["activity_id", 5], ["created_at", "2025-07-02 23:28:57.756776"], ["updated_at", "2025-07-02 23:28:57.756776"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-05"], ["activity_type", "breathing"], ["activity_id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.4ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-05"], ["activity_type", "breathing"], ["activity_id", 5], ["created_at", "2025-07-02 23:28:57.758000"], ["updated_at", "2025-07-02 23:28:57.758000"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-04"], ["activity_type", "stretch"], ["activity_id", 8], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.4ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-04"], ["activity_type", "stretch"], ["activity_id", 8], ["created_at", "2025-07-02 23:28:57.759981"], ["updated_at", "2025-07-02 23:28:57.759981"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-04"], ["activity_type", "breathing"], ["activity_id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-04"], ["activity_type", "breathing"], ["activity_id", 6], ["created_at", "2025-07-02 23:28:57.761466"], ["updated_at", "2025-07-02 23:28:57.761466"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-03"], ["activity_type", "stretch"], ["activity_id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-03"], ["activity_type", "stretch"], ["activity_id", 7], ["created_at", "2025-07-02 23:28:57.763754"], ["updated_at", "2025-07-02 23:28:57.763754"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-03"], ["activity_type", "breathing"], ["activity_id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-03"], ["activity_type", "breathing"], ["activity_id", 6], ["created_at", "2025-07-02 23:28:57.765183"], ["updated_at", "2025-07-02 23:28:57.765183"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mStretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  [1m[36mBreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-02"], ["activity_type", "stretch"], ["activity_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-02"], ["activity_type", "stretch"], ["activity_id", 1], ["created_at", "2025-07-02 23:28:57.767339"], ["updated_at", "2025-07-02 23:28:57.767339"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Load (0.0ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-06-02"], ["activity_type", "breathing"], ["activity_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserActivity Create (0.3ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-06-02"], ["activity_type", "breathing"], ["activity_id", 1], ["created_at", "2025-07-02 23:28:57.768733"], ["updated_at", "2025-07-02 23:28:57.768733"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserActivity Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "user_activities"[0m
+Started GET "/" for ::1 at 2025-07-03 08:29:17 +0900
+Processing by HomeController#index as HTML
+  [1m[36mStretch Load (10.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  ↳ app/controllers/home_controller.rb:23:in `get_todays_stretch'
+  [1m[36mBreathingExercise Load (0.3ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  ↳ app/controllers/home_controller.rb:29:in `get_todays_breathing'
+  [1m[36mDailyMessage Load (0.2ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages"[0m
+  ↳ app/controllers/home_controller.rb:35:in `get_todays_message'
+  [1m[36mUserActivity Load (0.5ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-07-02"], ["activity_type", "stretch"], ["activity_id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mUserActivity Create (0.7ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-07-02"], ["activity_type", "stretch"], ["activity_id", 5], ["created_at", "2025-07-02 23:29:17.413422"], ["updated_at", "2025-07-02 23:29:17.413422"]]
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mUserActivity Load (0.1ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-07-02"], ["activity_type", "breathing"], ["activity_id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mUserActivity Create (0.4ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-07-02"], ["activity_type", "breathing"], ["activity_id", 3], ["created_at", "2025-07-02 23:29:17.417002"], ["updated_at", "2025-07-02 23:29:17.417002"]]
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mUserActivity Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "user_activities"."date" AS "user_activities_date", "user_activities"."activity_type" AS "user_activities_activity_type" FROM "user_activities" WHERE (date >= '2025-06-02') GROUP BY "user_activities"."date", "user_activities"."activity_type" ORDER BY "user_activities"."date" ASC[0m
+  ↳ app/models/user_activity.rb:29:in `monthly_stats'
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mUserActivity Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "user_activities" WHERE (date >= '2025-06-29') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:66
+  [1m[36mUserActivity Load (0.4ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE (date >= '2025-06-29') ORDER BY "user_activities"."date" DESC, "user_activities"."created_at" DESC[0m
+  ↳ app/views/home/index.html.erb:79:in `group_by'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mBreathingExercise Load (0.2ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  Rendered home/index.html.erb within layouts/application (Duration: 7.1ms | Allocations: 7120)
+  Rendered layout layouts/application.html.erb (Duration: 8.3ms | Allocations: 8566)
+Completed 200 OK in 38ms (Views: 11.9ms | ActiveRecord: 19.6ms | Allocations: 34092)
+
+
+Started GET "/activities/monthly" for ::1 at 2025-07-03 08:29:19 +0900
+Processing by ActivitiesController#monthly as HTML
+  [1m[36mUserActivity Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "user_activities"."date" AS "user_activities_date", "user_activities"."activity_type" AS "user_activities_activity_type" FROM "user_activities" WHERE (date >= '2025-06-02') GROUP BY "user_activities"."date", "user_activities"."activity_type" ORDER BY "user_activities"."date" ASC[0m
+  ↳ app/models/user_activity.rb:29:in `monthly_stats'
+  Rendering layout layouts/application.html.erb
+  Rendering activities/monthly.html.erb within layouts/application
+  Rendered activities/monthly.html.erb within layouts/application (Duration: 1.8ms | Allocations: 1687)
+  Rendered layout layouts/application.html.erb (Duration: 3.9ms | Allocations: 2913)
+Completed 200 OK in 11ms (Views: 4.8ms | ActiveRecord: 1.1ms | Allocations: 5300)
+
+
+Started GET "/activities/daily/2025-06-10" for ::1 at 2025-07-03 08:29:20 +0900
+Processing by ActivitiesController#daily as HTML
+  Parameters: {"date"=>"2025-06-10"}
+  Rendering layout layouts/application.html.erb
+  Rendering activities/daily.html.erb within layouts/application
+  [1m[36mUserActivity Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "user_activities" WHERE "user_activities"."date" = $1 LIMIT $2[0m  [["date", "2025-06-10"], ["LIMIT", 1]]
+  ↳ app/views/activities/daily.html.erb:20
+  [1m[36mUserActivity Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "user_activities" WHERE "user_activities"."date" = $1[0m  [["date", "2025-06-10"]]
+  ↳ app/views/activities/daily.html.erb:26
+  [1m[36mUserActivity Load (0.1ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 ORDER BY "user_activities"."created_at" ASC[0m  [["date", "2025-06-10"]]
+  ↳ app/views/activities/daily.html.erb:30
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  Rendered activities/daily.html.erb within layouts/application (Duration: 6.8ms | Allocations: 4102)
+  Rendered layout layouts/application.html.erb (Duration: 8.5ms | Allocations: 5287)
+Completed 200 OK in 11ms (Views: 7.9ms | ActiveRecord: 1.2ms | Allocations: 5673)
+
+
+Started GET "/activities/monthly" for ::1 at 2025-07-03 08:29:22 +0900
+Processing by ActivitiesController#monthly as HTML
+  [1m[36mUserActivity Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "user_activities"."date" AS "user_activities_date", "user_activities"."activity_type" AS "user_activities_activity_type" FROM "user_activities" WHERE (date >= '2025-06-02') GROUP BY "user_activities"."date", "user_activities"."activity_type" ORDER BY "user_activities"."date" ASC[0m
+  ↳ app/models/user_activity.rb:29:in `monthly_stats'
+  Rendering layout layouts/application.html.erb
+  Rendering activities/monthly.html.erb within layouts/application
+  Rendered activities/monthly.html.erb within layouts/application (Duration: 0.4ms | Allocations: 1168)
+  Rendered layout layouts/application.html.erb (Duration: 1.1ms | Allocations: 2366)
+Completed 200 OK in 3ms (Views: 1.3ms | ActiveRecord: 0.6ms | Allocations: 4542)
+
+
+Started GET "/" for ::1 at 2025-07-03 08:29:25 +0900
+Processing by HomeController#index as HTML
+  [1m[36mStretch Load (0.8ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  ↳ app/controllers/home_controller.rb:23:in `get_todays_stretch'
+  [1m[36mBreathingExercise Load (0.4ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  ↳ app/controllers/home_controller.rb:29:in `get_todays_breathing'
+  [1m[36mDailyMessage Load (0.3ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages"[0m
+  ↳ app/controllers/home_controller.rb:35:in `get_todays_message'
+  [1m[36mUserActivity Load (0.4ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-07-02"], ["activity_type", "stretch"], ["activity_id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mUserActivity Load (0.3ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-07-02"], ["activity_type", "breathing"], ["activity_id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mUserActivity Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "user_activities"."date" AS "user_activities_date", "user_activities"."activity_type" AS "user_activities_activity_type" FROM "user_activities" WHERE (date >= '2025-06-02') GROUP BY "user_activities"."date", "user_activities"."activity_type" ORDER BY "user_activities"."date" ASC[0m
+  ↳ app/models/user_activity.rb:29:in `monthly_stats'
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mUserActivity Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "user_activities" WHERE (date >= '2025-06-29') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:66
+  [1m[36mUserActivity Load (0.2ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE (date >= '2025-06-29') ORDER BY "user_activities"."date" DESC, "user_activities"."created_at" DESC[0m
+  ↳ app/views/home/index.html.erb:79:in `group_by'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.2ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  Rendered home/index.html.erb within layouts/application (Duration: 6.7ms | Allocations: 4926)
+  Rendered layout layouts/application.html.erb (Duration: 8.6ms | Allocations: 6152)
+Completed 200 OK in 23ms (Views: 8.2ms | ActiveRecord: 3.4ms | Allocations: 11403)
+
+
+Started GET "/activities/history" for ::1 at 2025-07-03 08:29:30 +0900
+Processing by ActivitiesController#history as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering activities/history.html.erb within layouts/application
+  [1m[36mUserActivity Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "user_activities" WHERE (date >= '2025-06-22') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/activities/history.html.erb:12
+  [1m[36mUserActivity Load (0.3ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE (date >= '2025-06-22') ORDER BY "user_activities"."date" DESC, "user_activities"."created_at" DESC[0m
+  ↳ app/views/activities/history.html.erb:13:in `group_by'
+  [1m[36mBreathingExercise Load (0.2ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.3ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mBreathingExercise Load (0.2ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mBreathingExercise Load (0.2ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.2ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.2ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  Rendered activities/history.html.erb within layouts/application (Duration: 29.3ms | Allocations: 20478)
+  Rendered layout layouts/application.html.erb (Duration: 30.8ms | Allocations: 21692)
+Completed 200 OK in 33ms (Views: 28.6ms | ActiveRecord: 2.7ms | Allocations: 22085)
+
+
+Started GET "/" for ::1 at 2025-07-03 08:29:35 +0900
+Processing by HomeController#index as HTML
+  [1m[36mStretch Load (0.4ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  ↳ app/controllers/home_controller.rb:23:in `get_todays_stretch'
+  [1m[36mBreathingExercise Load (0.2ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  ↳ app/controllers/home_controller.rb:29:in `get_todays_breathing'
+  [1m[36mDailyMessage Load (0.2ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages"[0m
+  ↳ app/controllers/home_controller.rb:35:in `get_todays_message'
+  [1m[36mUserActivity Load (0.5ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-07-02"], ["activity_type", "stretch"], ["activity_id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mUserActivity Load (0.3ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-07-02"], ["activity_type", "breathing"], ["activity_id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mUserActivity Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "user_activities"."date" AS "user_activities_date", "user_activities"."activity_type" AS "user_activities_activity_type" FROM "user_activities" WHERE (date >= '2025-06-02') GROUP BY "user_activities"."date", "user_activities"."activity_type" ORDER BY "user_activities"."date" ASC[0m
+  ↳ app/models/user_activity.rb:29:in `monthly_stats'
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mUserActivity Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "user_activities" WHERE (date >= '2025-06-29') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:66
+  [1m[36mUserActivity Load (0.2ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE (date >= '2025-06-29') ORDER BY "user_activities"."date" DESC, "user_activities"."created_at" DESC[0m
+  ↳ app/views/home/index.html.erb:79:in `group_by'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  Rendered home/index.html.erb within layouts/application (Duration: 7.7ms | Allocations: 4904)
+  Rendered layout layouts/application.html.erb (Duration: 9.1ms | Allocations: 6102)
+Completed 200 OK in 22ms (Views: 8.7ms | ActiveRecord: 3.0ms | Allocations: 11350)
+
+
