@@ -172,16 +172,11 @@
       <a href="#" class="social-link">✨</a>
     </div>
     
-    <!-- 設定とリセットボタン -->
+    <!-- 設定ボタン -->
     <div class="settings-section">
       <%= link_to settings_path, class: "settings-button" do %>
         <span class="settings-icon">⚙️</span>
         <span class="settings-text">設定</span>
-      <% end %>
-      <%= button_to reset_data_path, method: :post, class: "reset-button", 
-          data: { confirm: "本当に過去のデータをリセットしますか？この操作は取り消せません。" } do %>
-        <span class="reset-icon">🔄</span>
-        <span class="reset-text">データをリセット</span>
       <% end %>
     </div>
   </div>
