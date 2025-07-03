@@ -213,7 +213,7 @@ class HomeController < ApplicationController
   end
 
   def get_recent_activities
-    # 過去3日分の活動履歴を取得
+    # 過去3日分の活動履歴を取得（ダミーデータは作成しない）
     UserActivity.recent_activities(3)
   end
 

@@ -46,15 +46,15 @@
           </div>
         <% else %>
           <div class="achievement-buttons">
-            <%= form_with url: record_achievement_path, method: :post, local: true, style: "display: inline;" do |form| %>
-              <%= form.hidden_field :activity_type, value: 'stretch' %>
-              <%= form.hidden_field :activity_id, value: @stretch.id %>
-              <%= form.submit "🧘‍♀️ ストレッチしたよ", class: "achievement-button stretch-button", style: "background: none; border: none; cursor: pointer; font-size: inherit; color: inherit;" %>
-            <% end %>
+            <button class="achievement-button stretch-button" data-activity-type="stretch">
+              <span class="button-icon">🧘‍♀️</span>
+              <span class="button-text">ストレッチしたよ</span>
+            </button>
             
-            <%= link_to "🔄 別のストレッチも試す", get_another_stretch_path(current_id: @stretch.id), 
-                class: "try-another-button stretch-try-another", 
-                style: "text-decoration: none; display: inline-block; margin-left: 10px;" %>
+            <button class="try-another-button stretch-try-another" data-stretch-id="<%= @stretch.id %>">
+              <span class="button-icon">🔄</span>
+              <span class="button-text">別のストレッチも試す</span>
+            </button>
           </div>
         <% end %>
       </div>
@@ -95,15 +95,15 @@
           </div>
         <% else %>
           <div class="achievement-buttons">
-            <%= form_with url: record_achievement_path, method: :post, local: true, style: "display: inline;" do |form| %>
-              <%= form.hidden_field :activity_type, value: 'breathing' %>
-              <%= form.hidden_field :activity_id, value: @breathing.id %>
-              <%= form.submit "💨 呼吸したよ", class: "achievement-button breathing-button", style: "background: none; border: none; cursor: pointer; font-size: inherit; color: inherit;" %>
-            <% end %>
+            <button class="achievement-button breathing-button" data-activity-type="breathing">
+              <span class="button-icon">💨</span>
+              <span class="button-text">呼吸したよ</span>
+            </button>
             
-            <%= link_to "🔄 別の呼吸法も試す", get_another_breathing_path(current_id: @breathing.id), 
-                class: "try-another-button breathing-try-another", 
-                style: "text-decoration: none; display: inline-block; margin-left: 10px;" %>
+            <button class="try-another-button breathing-try-another" data-breathing-id="<%= @breathing.id %>">
+              <span class="button-icon">🔄</span>
+              <span class="button-text">別の呼吸法も試す</span>
+            </button>
           </div>
         <% end %>
       </div>
@@ -181,10 +181,7 @@
         <span class="settings-text">設定</span>
       <% end %>
       
-      <!-- 本番環境テスト用ボタン -->
-      <button id="test-button" style="margin-left: 10px; padding: 8px 16px; background: #ff6b9d; color: white; border: none; border-radius: 8px; cursor: pointer;">
-        🧪 JSテスト
-      </button>
+
     </div>
   </div>
 </div>
@@ -206,7 +203,6 @@
     
     console.log('Initializing app...');
     console.log('Document ready state:', document.readyState);
-    console.log('Window loaded:', window.loaded);
     
     try {
       // テーマの読み込み
@@ -252,18 +248,8 @@
     
     console.log('Global click detected on:', target.className);
     console.log('Button text:', target.textContent.trim());
-    console.log('Button data attributes:', {
-      activityType: target.getAttribute('data-activity-type'),
-      stretchId: target.getAttribute('data-stretch-id'),
-      breathingId: target.getAttribute('data-breathing-id')
-    });
     
-    if (target.id === 'test-button') {
-      event.preventDefault();
-      event.stopPropagation();
-      console.log('Test button clicked via global handler');
-      testJavaScript();
-    } else if (target.classList.contains('achievement-button')) {
+    if (target.classList.contains('achievement-button')) {
       event.preventDefault();
       event.stopPropagation();
       console.log('Achievement button clicked via global handler');
@@ -297,92 +283,13 @@
     }, 500);
   });
   
-  // さらに確実な初期化（本番環境用）
-  setTimeout(() => {
-    console.log('Final initialization check...');
-    if (typeof testJavaScript === 'undefined') {
-      console.error('testJavaScript function not found, redefining...');
-      // testJavaScript関数を再定義
-      window.testJavaScript = function() {
-        alert('JavaScript is working!');
-        console.log('Test function called');
-        setupEventListeners();
-      };
-    }
-    setupEventListeners();
-  }, 1000);
-  
-  // 本番環境での確実な初期化
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOMContentLoaded event fired');
-    console.log('Document ready state:', document.readyState);
-    console.log('Window loaded:', window.loaded);
-    
-    // ボタンの存在確認
-    const buttons = document.querySelectorAll('button');
-    console.log('Total buttons found:', buttons.length);
-    
-    buttons.forEach((btn, index) => {
-      console.log(`Button ${index}:`, {
-        className: btn.className,
-        textContent: btn.textContent.trim(),
-        dataAttributes: {
-          activityType: btn.getAttribute('data-activity-type'),
-          stretchId: btn.getAttribute('data-stretch-id'),
-          breathingId: btn.getAttribute('data-breathing-id')
-        }
-      });
-    });
-    
-    setupEventListeners();
-  });
-  
   // CSRFトークン取得関数
   function getCSRFToken() {
     const token = document.querySelector('meta[name="csrf-token"]');
     return token ? token.getAttribute('content') : null;
   }
   
-  // テスト用関数
-  function testJavaScript() {
-    alert('JavaScript is working!');
-    console.log('Test function called');
-    
-    // ボタンの存在確認
-    const achievementButtons = document.querySelectorAll('.achievement-button');
-    const resetButtons = document.querySelectorAll('.reset-achievement-button');
-    const tryAnotherButtons = document.querySelectorAll('.try-another-button');
-    
-    console.log('Achievement buttons found:', achievementButtons.length);
-    console.log('Reset buttons found:', resetButtons.length);
-    console.log('Try another buttons found:', tryAnotherButtons.length);
-    
-    // ボタンの詳細情報
-    achievementButtons.forEach((btn, index) => {
-      console.log(`Achievement button ${index}:`, {
-        className: btn.className,
-        dataActivityType: btn.getAttribute('data-activity-type'),
-        textContent: btn.textContent.trim()
-      });
-    });
-    
-    // CSRFトークンの確認
-    const csrfToken = getCSRFToken();
-    console.log('CSRF token found:', !!csrfToken);
-    console.log('CSRF token value:', csrfToken ? csrfToken.substring(0, 10) + '...' : 'null');
-    
-    // イベントリスナーの再設定
-    setupEventListeners();
-    console.log('Event listeners re-setup completed');
-    
-    // 手動でボタンクリックをテスト
-    if (achievementButtons.length > 0) {
-      console.log('Testing first achievement button click...');
-      achievementButtons[0].click();
-    }
-  }
-  
-    // 実績ボタンの処理関数
+  // 実績ボタンの処理関数
   function handleAchievementClick(button) {
     console.log('handleAchievementClick called with button:', button);
     
@@ -394,8 +301,6 @@
       
       console.log('Activity Type:', activityType);
       console.log('Current ID:', currentId);
-      console.log('Achievement Section:', achievementSection);
-      console.log('Try Another Button:', tryAnotherButton);
       
       if (!activityType) {
         console.error('Activity type not found on button');
@@ -444,10 +349,6 @@
           console.log('Response data:', data);
           if (data.success) {
             // 成功時の処理
-            const achievementSection = button.closest('.achievement-section');
-            const currentTryAnotherButton = achievementSection.querySelector(`.${activityType}-try-another`);
-            const currentId = currentTryAnotherButton?.getAttribute(`data-${activityType}-id`);
-            
             achievementSection.innerHTML = `
               <div class="achievement-completed">
                 <span class="achievement-icon">✅</span>
@@ -465,324 +366,237 @@
               </div>
             `;
             
-            // やり直しボタンのイベントリスナーを追加
-            const resetButton = achievementSection.querySelector('.reset-achievement-button');
-            resetButton.addEventListener('click', (e) => handleResetAchievement(e));
-            
-            // 別のストレッチ・呼吸法を試すボタンのイベントリスナーを追加
-            const newTryAnotherButton = achievementSection.querySelector('.try-another-button');
-            newTryAnotherButton.addEventListener('click', (e) => handleTryAnother(e));
-            
             // 成功メッセージを表示
             showNotification(data.message, 'success');
             
             // 応援メッセージを表示
-            setTimeout(() => {
-              showEncouragementModal(data.encouragement_message, activityType);
-            }, 1000);
+            if (data.encouragement_message) {
+              setTimeout(() => {
+                showEncouragementModal(data.encouragement_message, activityType);
+              }, 1000);
+            }
           }
         })
         .catch(error => {
           console.error('Fetch Error:', error);
-          console.error('Error details:', {
-            message: error.message,
-            stack: error.stack,
-            activityType: activityType,
-            currentId: currentId,
-            url: '/home/record_achievement'
-          });
           button.disabled = false;
           button.style.opacity = '1';
           showNotification('通信エラーが発生しました。もう一度お試しください。', 'error');
         });
-      } catch (error) {
-        console.error('JavaScript Error:', error);
+    } catch (error) {
+      console.error('JavaScript Error:', error);
+      button.disabled = false;
+      button.style.opacity = '1';
+      showNotification('JavaScriptエラーが発生しました。', 'error');
+    }
+  }
+  
+  // やり直し機能
+  function handleResetAchievement(button) {
+    const activityType = button.getAttribute('data-activity-type');
+    const achievementSection = button.closest('.achievement-section');
+    const tryAnotherButton = achievementSection.querySelector(`.${activityType}-try-another`);
+    const currentId = tryAnotherButton?.getAttribute(`data-${activityType}-id`);
+    
+    // ボタンを無効化
+    button.disabled = true;
+    button.style.opacity = '0.6';
+    
+    // CSRFトークンの取得
+    const csrfToken = getCSRFToken();
+    if (!csrfToken) {
+      console.error('CSRF token not found');
+      showNotification('セキュリティエラーが発生しました。', 'error');
+      return;
+    }
+    
+    fetch('/home/reset_achievement', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken
+      },
+      body: JSON.stringify({
+        activity_type: activityType,
+        activity_id: currentId
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // 成功時の処理
+          achievementSection.innerHTML = `
+            <div class="achievement-buttons">
+              <button class="achievement-button ${activityType}-button" data-activity-type="${activityType}">
+                <span class="button-icon">${activityType === 'stretch' ? '🧘‍♀️' : '💨'}</span>
+                <span class="button-text">${activityType === 'stretch' ? 'ストレッチしたよ' : '呼吸したよ'}</span>
+              </button>
+              <button class="try-another-button ${activityType}-try-another" data-${activityType}-id="${currentId}">
+                <span class="button-icon">🔄</span>
+                <span class="button-text">別の${activityType === 'stretch' ? 'ストレッチ' : '呼吸法'}も試す</span>
+              </button>
+            </div>
+          `;
+          
+          // 成功メッセージを表示
+          showNotification(data.message, 'success');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
         button.disabled = false;
         button.style.opacity = '1';
-        showNotification('JavaScriptエラーが発生しました。', 'error');
-      }
-    }
+        showNotification('エラーが発生しました。もう一度お試しください。', 'error');
+      });
+  }
+  
+  // 別のストレッチ・呼吸法を試す機能
+  function handleTryAnother(button) {
+    const isStretch = button.classList.contains('stretch-try-another');
+    const currentId = button.getAttribute(isStretch ? 'data-stretch-id' : 'data-breathing-id');
+    const endpoint = isStretch ? '/home/get_another_stretch' : '/home/get_another_breathing';
     
-    // CSRFトークン取得関数
-    function getCSRFToken() {
-      try {
-        const metaTag = document.querySelector('meta[name="csrf-token"]');
-        return metaTag ? metaTag.getAttribute('content') : null;
-      } catch (error) {
-        console.error('Error getting CSRF token:', error);
-        return null;
-      }
-    }
+    // ボタンを無効化
+    button.disabled = true;
+    button.style.opacity = '0.6';
     
-    // やり直し機能
-    function handleResetAchievement(button) {
-        const activityType = button.getAttribute('data-activity-type');
-        const achievementSection = button.closest('.achievement-section');
-        const tryAnotherButton = achievementSection.querySelector(`.${activityType}-try-another`);
-        const currentId = tryAnotherButton?.getAttribute(`data-${activityType}-id`);
+    fetch(`${endpoint}?current_id=${currentId}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // コンテンツを更新
+        const card = button.closest('.content-card');
+        const cardContent = card.querySelector('.card-content');
         
-        // ボタンを無効化
-        button.disabled = true;
-        button.style.opacity = '0.6';
-        
-              // CSRFトークンの取得
-      const csrfToken = getCSRFToken();
-      if (!csrfToken) {
-        console.error('CSRF token not found');
-        showNotification('セキュリティエラーが発生しました。', 'error');
-        return;
-      }
-      
-      fetch('/home/reset_achievement', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': csrfToken
-        },
-        body: JSON.stringify({
-          activity_type: activityType,
-          activity_id: currentId
-        })
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            // 成功時の処理
-            const achievementSection = button.closest('.achievement-section');
-            achievementSection.innerHTML = `
+        if (isStretch) {
+          // ストレッチの内容を更新
+          const stretch = data.stretch;
+          cardContent.innerHTML = `
+            <h3>${stretch.name}</h3>
+            <p>${stretch.description}</p>
+            <div class="duration-badge">約${stretch.duration}分</div>
+            <span class="category-badge">${stretch.difficulty}</span>
+            
+            <!-- 実績ボタン -->
+            <div class="achievement-section">
               <div class="achievement-buttons">
-                <button class="achievement-button ${activityType}-button" data-activity-type="${activityType}">
-                  <span class="button-icon">${activityType === 'stretch' ? '🧘‍♀️' : '💨'}</span>
-                  <span class="button-text">${activityType === 'stretch' ? 'ストレッチしたよ' : '呼吸したよ'}</span>
+                <button class="achievement-button stretch-button" data-activity-type="stretch">
+                  <span class="button-icon">🧘‍♀️</span>
+                  <span class="button-text">ストレッチしたよ</span>
                 </button>
-                <button class="try-another-button ${activityType}-try-another" data-${activityType}-id="${activityType === 'stretch' ? 'current_stretch_id' : 'current_breathing_id'}">
+                <button class="try-another-button stretch-try-another" data-stretch-id="${stretch.id}">
                   <span class="button-icon">🔄</span>
-                  <span class="button-text">別の${activityType === 'stretch' ? 'ストレッチ' : '呼吸法'}も試す</span>
+                  <span class="button-text">別のストレッチも試す</span>
                 </button>
               </div>
-            `;
+            </div>
+          `;
+        } else {
+          // 呼吸法の内容を更新
+          const breathing = data.breathing;
+          cardContent.innerHTML = `
+            <h3>${breathing.name}</h3>
+            <p>${breathing.description}</p>
+            <div class="duration-badge">約${breathing.duration}分</div>
+            <span class="category-badge">${breathing.technique}</span>
             
-            // 新しいボタンにイベントリスナーを追加
-            const newButton = achievementSection.querySelector('.achievement-button');
-            newButton.addEventListener('click', function() {
-              handleAchievementClick(this);
-            });
-            
-            const tryAnotherButton = achievementSection.querySelector('.try-another-button');
-            tryAnotherButton.addEventListener('click', function() {
-              handleTryAnother(this);
-            });
-            
-            // 成功メッセージを表示
-            showNotification(data.message, 'success');
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          button.disabled = false;
-          button.style.opacity = '1';
-          showNotification('エラーが発生しました。もう一度お試しください。', 'error');
-        });
-      }
-    }
-    
-    // 別のストレッチ・呼吸法を試す機能
-    function handleTryAnother(button) {
-        const isStretch = button.classList.contains('stretch-try-another');
-        const currentId = button.getAttribute(isStretch ? 'data-stretch-id' : 'data-breathing-id');
-        const endpoint = isStretch ? '/home/get_another_stretch' : '/home/get_another_breathing';
+            <!-- 実績ボタン -->
+            <div class="achievement-section">
+              <div class="achievement-buttons">
+                <button class="achievement-button breathing-button" data-activity-type="breathing">
+                  <span class="button-icon">💨</span>
+                  <span class="button-text">呼吸したよ</span>
+                </button>
+                <button class="try-another-button breathing-try-another" data-breathing-id="${breathing.id}">
+                  <span class="button-icon">🔄</span>
+                  <span class="button-text">別の呼吸法も試す</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }
         
-        // ボタンを無効化
-        button.disabled = true;
-        button.style.opacity = '0.6';
-        
-        fetch(`${endpoint}?current_id=${currentId}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            // コンテンツを更新
-            const card = button.closest('.content-card');
-            const cardContent = card.querySelector('.card-content');
-            
-            if (isStretch) {
-              // ストレッチの内容を更新
-              const stretch = data.stretch;
-              cardContent.innerHTML = `
-                <h3>${stretch.name}</h3>
-                <p>${stretch.description}</p>
-                <div class="duration-badge">約${stretch.duration}分</div>
-                <span class="category-badge">${stretch.difficulty}</span>
-                
-                <!-- 実績ボタン -->
-                <div class="achievement-section">
-                  <div class="achievement-buttons">
-                    <button class="achievement-button stretch-button" data-activity-type="stretch">
-                      <span class="button-icon">🧘‍♀️</span>
-                      <span class="button-text">ストレッチしたよ</span>
-                    </button>
-                    <button class="try-another-button stretch-try-another" data-stretch-id="${stretch.id}">
-                      <span class="button-icon">🔄</span>
-                      <span class="button-text">別のストレッチも試す</span>
-                    </button>
-                  </div>
-                </div>
-              `;
-            } else {
-              // 呼吸法の内容を更新
-              const breathing = data.breathing;
-              cardContent.innerHTML = `
-                <h3>${breathing.name}</h3>
-                <p>${breathing.description}</p>
-                <div class="duration-badge">約${breathing.duration}分</div>
-                <span class="category-badge">${breathing.technique}</span>
-                
-                <!-- 実績ボタン -->
-                <div class="achievement-section">
-                  <div class="achievement-buttons">
-                    <button class="achievement-button breathing-button" data-activity-type="breathing">
-                      <span class="button-icon">💨</span>
-                      <span class="button-text">呼吸したよ</span>
-                    </button>
-                    <button class="try-another-button breathing-try-another" data-breathing-id="${breathing.id}">
-                      <span class="button-icon">🔄</span>
-                      <span class="button-text">別の呼吸法も試す</span>
-                    </button>
-                  </div>
-                </div>
-              `;
-            }
-            
-            // 新しいボタンにイベントリスナーを追加
-            const newAchievementButton = cardContent.querySelector('.achievement-button');
-            newAchievementButton.addEventListener('click', function() {
-              handleAchievementClick(this);
-            });
-            
-            const newTryAnotherButton = cardContent.querySelector('.try-another-button');
-            newTryAnotherButton.addEventListener('click', function() {
-              handleTryAnother(this);
-            });
-            
-            // 成功メッセージを表示
-            showNotification(`新しい${isStretch ? 'ストレッチ' : '呼吸法'}を表示しました！`, 'success');
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          button.disabled = false;
-          button.style.opacity = '1';
-          showNotification('エラーが発生しました。もう一度お試しください。', 'error');
-        });
+        // 成功メッセージを表示
+        showNotification(`新しい${isStretch ? 'ストレッチ' : '呼吸法'}を表示しました！`, 'success');
       }
-    }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      button.disabled = false;
+      button.style.opacity = '1';
+      showNotification('エラーが発生しました。もう一度お試しください。', 'error');
+    });
+  }
+  
+  // 通知表示関数
+  function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
     
-    // 通知表示関数
-    function showNotification(message, type) {
-      const notification = document.createElement('div');
-      notification.className = `notification ${type}`;
-      notification.textContent = message;
-      
-      document.body.appendChild(notification);
-      
-      // 3秒後に削除
-      setTimeout(() => {
-        notification.remove();
-      }, 3000);
-    }
+    document.body.appendChild(notification);
     
-    // テスト用関数
-    function testJavaScript() {
-      alert('JavaScript is working!');
-      console.log('Test function called');
-      
-      // ボタンの存在確認
-      const achievementButtons = document.querySelectorAll('.achievement-button');
-      const resetButtons = document.querySelectorAll('.reset-achievement-button');
-      const tryAnotherButtons = document.querySelectorAll('.try-another-button');
-      
-      console.log('Achievement buttons found:', achievementButtons.length);
-      console.log('Reset buttons found:', resetButtons.length);
-      console.log('Try another buttons found:', tryAnotherButtons.length);
-      
-      // ボタンの詳細情報
-      achievementButtons.forEach((btn, index) => {
-        console.log(`Achievement button ${index}:`, {
-          className: btn.className,
-          dataActivityType: btn.getAttribute('data-activity-type'),
-          textContent: btn.textContent.trim()
-        });
-      });
-      
-      // CSRFトークンの確認
-      const csrfToken = getCSRFToken();
-      console.log('CSRF token found:', !!csrfToken);
-      console.log('CSRF token value:', csrfToken ? csrfToken.substring(0, 10) + '...' : 'null');
-      
-      // イベントリスナーの再設定
-      setupEventListeners();
-      console.log('Event listeners re-setup completed');
-      
-      // 手動でボタンクリックをテスト
-      if (achievementButtons.length > 0) {
-        console.log('Testing first achievement button click...');
-        achievementButtons[0].click();
-      }
-    }
-    
-    // 応援メッセージモーダル表示関数
-    function showEncouragementModal(message, activityType) {
-      const modal = document.createElement('div');
-      modal.className = 'encouragement-modal';
-      modal.innerHTML = `
-        <div class="encouragement-modal-content">
-          <div class="encouragement-modal-header">
-            <div class="encouragement-modal-icon">💝</div>
-            <h3 class="encouragement-modal-title">今日の応援メッセージ</h3>
-          </div>
-          <div class="encouragement-modal-body">
-            <div class="encouragement-modal-message">${message}</div>
-            <div class="encouragement-modal-time">${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}</div>
-          </div>
-          <div class="encouragement-modal-footer">
-            <button class="encouragement-modal-button" onclick="this.closest('.encouragement-modal').remove()">
-              <span class="button-icon">💕</span>
-              <span class="button-text">ありがとう！</span>
-            </button>
-          </div>
+    // 3秒後に削除
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
+  }
+  
+
+  
+  // 応援メッセージモーダル表示関数
+  function showEncouragementModal(message, activityType) {
+    const modal = document.createElement('div');
+    modal.className = 'encouragement-modal';
+    modal.innerHTML = `
+      <div class="encouragement-modal-content">
+        <div class="encouragement-modal-header">
+          <div class="encouragement-modal-icon">💝</div>
+          <h3 class="encouragement-modal-title">今日の応援メッセージ</h3>
         </div>
-      `;
-      
-      document.body.appendChild(modal);
-      
-      // アニメーション効果
-      setTimeout(() => {
-        modal.classList.add('show');
-      }, 100);
-    }
+        <div class="encouragement-modal-body">
+          <div class="encouragement-modal-message">${message}</div>
+          <div class="encouragement-modal-time">${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}</div>
+        </div>
+        <div class="encouragement-modal-footer">
+          <button class="encouragement-modal-button" onclick="this.closest('.encouragement-modal').remove()">
+            <span class="button-icon">💕</span>
+            <span class="button-text">ありがとう！</span>
+          </button>
+        </div>
+      </div>
+    `;
     
-    // テーマ適用関数
-    function applyTheme(theme) {
-      const root = document.documentElement;
-      root.classList.remove('theme-pink', 'theme-blue', 'theme-green', 'theme-purple');
-      root.classList.add(`theme-${theme}`);
-      
-      // カラーパレットを更新
-      updateColorPalette(theme);
-    }
+    document.body.appendChild(modal);
     
-    function updateColorPalette(theme) {
-      const colors = {
-        pink: { primary: '#FF69B4', secondary: '#FF1493', accent: '#87CEEB' },
-        blue: { primary: '#4682B4', secondary: '#87CEEB', accent: '#FF69B4' },
-        green: { primary: '#32CD32', secondary: '#90EE90', accent: '#FF69B4' },
-        purple: { primary: '#9370DB', secondary: '#DDA0DD', accent: '#FF69B4' }
-      };
-      
-      const color = colors[theme];
-      const root = document.documentElement;
-      root.style.setProperty('--primary-color', color.primary);
-      root.style.setProperty('--secondary-color', color.secondary);
-      root.style.setProperty('--accent-color', color.accent);
-    }
-  });
+    // アニメーション効果
+    setTimeout(() => {
+      modal.classList.add('show');
+    }, 100);
+  }
+  
+  // テーマ適用関数
+  function applyTheme(theme) {
+    const root = document.documentElement;
+    root.classList.remove('theme-pink', 'theme-blue', 'theme-green', 'theme-purple');
+    root.classList.add(`theme-${theme}`);
+    
+    // カラーパレットを更新
+    updateColorPalette(theme);
+  }
+  
+  function updateColorPalette(theme) {
+    const colors = {
+      pink: { primary: '#FF69B4', secondary: '#FF1493', accent: '#87CEEB' },
+      blue: { primary: '#4682B4', secondary: '#87CEEB', accent: '#FF69B4' },
+      green: { primary: '#32CD32', secondary: '#90EE90', accent: '#FF69B4' },
+      purple: { primary: '#9370DB', secondary: '#DDA0DD', accent: '#FF69B4' }
+    };
+    
+    const color = colors[theme];
+    const root = document.documentElement;
+    root.style.setProperty('--primary-color', color.primary);
+    root.style.setProperty('--secondary-color', color.secondary);
+    root.style.setProperty('--accent-color', color.accent);
+  }
 </script>
