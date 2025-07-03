@@ -1,0 +1,46 @@
+<div class="container">
+  <!-- ヘッダー -->
+  <div class="header">
+    <h1 class="app-title">朝ストレッチ・美呼吸</h1>
+    <p class="subtitle">今日のあなたにぴったりの癒し時間</p>
+  </div>
+
+  <!-- 応援メッセージ -->
+  <div class="content-card encouragement-card">
+    <div class="card-header">
+      <div class="card-icon encouragement-icon">💝</div>
+      <div>
+        <h2 class="card-title">今日の応援メッセージ</h2>
+        <div class="card-subtitle">あなたへの特別なメッセージ</div>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="encouragement-message">
+        <%= @encouragement.message %>
+      </div>
+      <div class="encouragement-footer">
+        <div class="encouragement-time">
+          <%= Time.current.strftime("%Y年%m月%d日 %H:%M") %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 戻るボタン -->
+  <div class="back-buttons">
+    <%= link_to root_path, class: "back-link top-home" do %>
+      <span class="back-icon">🏠</span>
+      <span class="back-text">トップに戻る</span>
+    <% end %>
+  </div>
+
+  <!-- フッター -->
+  <div class="footer">
+    <div class="footer-text">
+      🌸 毎朝5分で、美しい習慣を始めましょう 🌸
+    </div>
+    <div class="footer-text">
+      あなたのペースで、無理せず続けることが大切です
+    </div>
+  </div>
+</div> 

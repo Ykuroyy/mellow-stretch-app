@@ -237,6 +237,83 @@ daily_messages.each do |message_data|
 end
 
 puts "シードデータの作成が完了しました！"
+
+# 応援メッセージデータ
+encouragement_messages = [
+  # ストレッチ用メッセージ
+  {
+    message: "素晴らしい！体を動かすことで、今日一日のエネルギーが湧いてきます。あなたの体は感謝しています。",
+    category: "stretch"
+  },
+  {
+    message: "ストレッチ完了！体が軽くなって、心も軽やかになりましたね。今日も頑張れます！",
+    category: "stretch"
+  },
+  {
+    message: "体を伸ばすことで、新しい可能性が広がります。今日も素敵な一日になりますように。",
+    category: "stretch"
+  },
+  {
+    message: "ストレッチで体をほぐすことで、心もほぐれていきます。あなたの努力が実を結びます。",
+    category: "stretch"
+  },
+  {
+    message: "朝のストレッチで、一日のスタートを気持ちよく切りましたね。今日も頑張りましょう！",
+    category: "stretch"
+  },
+  
+  # 呼吸法用メッセージ
+  {
+    message: "呼吸を整えることで、心も整います。今日も穏やかな気持ちで過ごせますように。",
+    category: "breathing"
+  },
+  {
+    message: "深い呼吸で、新しいエネルギーが体に満ちています。今日も素晴らしい一日になります。",
+    category: "breathing"
+  },
+  {
+    message: "呼吸法で心を落ち着かせることができましたね。今日も冷静で優しい心で過ごせます。",
+    category: "breathing"
+  },
+  {
+    message: "呼吸を意識することで、今この瞬間を大切にできます。今日も充実した一日になりますように。",
+    category: "breathing"
+  },
+  {
+    message: "呼吸法で心身のバランスが整いました。今日も調和のとれた一日になります。",
+    category: "breathing"
+  },
+  
+  # 一般用メッセージ
+  {
+    message: "今日も一日頑張りましょう！小さな積み重ねが、大きな変化を生み出します。",
+    category: "general"
+  },
+  {
+    message: "あなたのペースで、無理せず進んでいきましょう。完璧である必要はありません。",
+    category: "general"
+  },
+  {
+    message: "今日のあなたは、昨日のあなたより少し成長しています。その積み重ねが素晴らしい未来を作ります。",
+    category: "general"
+  },
+  {
+    message: "体と心の声に耳を傾けてください。あなたの体は、あなたの味方です。",
+    category: "general"
+  },
+  {
+    message: "今日も素敵な一日になりますように。あなたの笑顔が世界を明るくします。",
+    category: "general"
+  }
+]
+
+encouragement_messages.each do |encouragement_data|
+  EncouragementMessage.find_or_create_by!(message: encouragement_data[:message]) do |encouragement|
+    encouragement.category = encouragement_data[:category]
+  end
+end
+
+puts "応援メッセージデータも作成完了しました！"
 puts "ストレッチ: #{Stretch.count}件"
 puts "呼吸法: #{BreathingExercise.count}件"
 puts "メッセージ: #{DailyMessage.count}件"

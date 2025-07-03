@@ -13,6 +13,43 @@ class HomeController < ApplicationController
     
     # 月別統計データを取得（グラフ用）
     @monthly_stats = UserActivity.monthly_stats
+    
+    # 今日の実績を取得
+    @today_achievements = get_todays_achievements
+  end
+
+  def reset_data
+    # 過去のデータをリセット
+    UserActivity.delete_all
+    Achievement.delete_all
+    
+    redirect_to root_path, notice: '過去のデータをリセットしました。新しいスタートです！'
+  end
+
+  def record_achievement
+    # JSONパラメータからactivity_typeを取得
+    activity_type = params[:activity_type] || JSON.parse(request.body.read)['activity_type']
+    date = Date.current
+    
+    # 既存の実績を確認
+    achievement = Achievement.find_or_initialize_by(date: date, activity_type: activity_type)
+    achievement.completed = true
+    achievement.save!
+    
+    # 応援メッセージを取得
+    encouragement = EncouragementMessage.random_for_category(activity_type)
+    
+    # 成功メッセージを返す
+    render json: { 
+      success: true, 
+      message: "#{activity_type == 'stretch' ? 'ストレッチ' : '呼吸法'}を完了しました！",
+      completed: true,
+      encouragement_message: encouragement&.message || "今日も一日頑張りましょう！"
+    }
+  end
+
+  def encouragement
+    @encouragement = EncouragementMessage.random_for_category(params[:category] || 'general')
   end
 
   private
@@ -44,5 +81,13 @@ class HomeController < ApplicationController
   def get_recent_activities
     # 過去3日分の活動履歴を取得
     UserActivity.recent_activities(3)
+  end
+
+  def get_todays_achievements
+    today = Date.current
+    {
+      stretch: Achievement.find_by(date: today, activity_type: 'stretch')&.completed || false,
+      breathing: Achievement.find_by(date: today, activity_type: 'breathing')&.completed || false
+    }
   end
 end

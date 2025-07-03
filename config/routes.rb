@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   
   get "up" => "rails/health#show", as: :rails_health_check
   
+  # データリセットと実績記録
+  post "home/reset_data" => "home#reset_data", as: :reset_data
+  post "home/record_achievement" => "home#record_achievement", as: :record_achievement
+  get "home/encouragement" => "home#encouragement", as: :encouragement
+  
   # 詳細画面
   get "activities/history" => "activities#history", as: :activities_history
   get "activities/monthly" => "activities#monthly", as: :activities_monthly
