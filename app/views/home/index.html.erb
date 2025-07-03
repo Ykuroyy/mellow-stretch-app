@@ -243,17 +243,26 @@
     if (!target) return;
     
     console.log('Global click detected on:', target.className);
+    console.log('Button text:', target.textContent.trim());
+    console.log('Button data attributes:', {
+      activityType: target.getAttribute('data-activity-type'),
+      stretchId: target.getAttribute('data-stretch-id'),
+      breathingId: target.getAttribute('data-breathing-id')
+    });
     
     if (target.classList.contains('achievement-button')) {
       event.preventDefault();
+      event.stopPropagation();
       console.log('Achievement button clicked via global handler');
       handleAchievementClick(target);
     } else if (target.classList.contains('reset-achievement-button')) {
       event.preventDefault();
+      event.stopPropagation();
       console.log('Reset button clicked via global handler');
       handleResetAchievement(target);
     } else if (target.classList.contains('try-another-button')) {
       event.preventDefault();
+      event.stopPropagation();
       console.log('Try another button clicked via global handler');
       handleTryAnother(target);
     }
@@ -289,6 +298,31 @@
     }
     setupEventListeners();
   }, 1000);
+  
+  // 本番環境での確実な初期化
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded event fired');
+    console.log('Document ready state:', document.readyState);
+    console.log('Window loaded:', window.loaded);
+    
+    // ボタンの存在確認
+    const buttons = document.querySelectorAll('button');
+    console.log('Total buttons found:', buttons.length);
+    
+    buttons.forEach((btn, index) => {
+      console.log(`Button ${index}:`, {
+        className: btn.className,
+        textContent: btn.textContent.trim(),
+        dataAttributes: {
+          activityType: btn.getAttribute('data-activity-type'),
+          stretchId: btn.getAttribute('data-stretch-id'),
+          breathingId: btn.getAttribute('data-breathing-id')
+        }
+      });
+    });
+    
+    setupEventListeners();
+  });
   
   // CSRFトークン取得関数
   function getCSRFToken() {
@@ -368,11 +402,18 @@
       button.disabled = true;
       button.style.opacity = '0.6';
       
+      console.log('Sending fetch request to /home/record_achievement');
+      console.log('Request data:', {
+        activity_type: activityType,
+        activity_id: currentId
+      });
+      
       fetch('/home/record_achievement', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRF-Token': csrfToken
+          'X-CSRF-Token': csrfToken,
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
           activity_type: activityType,
@@ -434,7 +475,8 @@
             message: error.message,
             stack: error.stack,
             activityType: activityType,
-            currentId: currentId
+            currentId: currentId,
+            url: '/home/record_achievement'
           });
           button.disabled = false;
           button.style.opacity = '1';
