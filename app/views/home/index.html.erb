@@ -212,9 +212,9 @@
     
         function handleAchievementClick(button) {
       const activityType = button.getAttribute('data-activity-type');
-      const currentId = activityType === 'stretch' ? 
-        document.querySelector('.stretch-try-another')?.getAttribute('data-stretch-id') : 
-        document.querySelector('.breathing-try-another')?.getAttribute('data-breathing-id');
+      const achievementSection = button.closest('.achievement-section');
+      const tryAnotherButton = achievementSection.querySelector(`.${activityType}-try-another`);
+      const currentId = tryAnotherButton?.getAttribute(`data-${activityType}-id`);
         
         // ボタンを無効化
         button.disabled = true;
@@ -236,9 +236,8 @@
           if (data.success) {
             // 成功時の処理
             const achievementSection = button.closest('.achievement-section');
-            const currentId = activityType === 'stretch' ? 
-              document.querySelector('.stretch-try-another')?.getAttribute('data-stretch-id') : 
-              document.querySelector('.breathing-try-another')?.getAttribute('data-breathing-id');
+            const tryAnotherButton = achievementSection.querySelector(`.${activityType}-try-another`);
+            const currentId = tryAnotherButton?.getAttribute(`data-${activityType}-id`);
             
             achievementSection.innerHTML = `
               <div class="achievement-completed">
@@ -285,9 +284,9 @@
       // やり直し機能
       function handleResetAchievement(button) {
         const activityType = button.getAttribute('data-activity-type');
-        const currentId = activityType === 'stretch' ? 
-          document.querySelector('.stretch-try-another')?.getAttribute('data-stretch-id') : 
-          document.querySelector('.breathing-try-another')?.getAttribute('data-breathing-id');
+        const achievementSection = button.closest('.achievement-section');
+        const tryAnotherButton = achievementSection.querySelector(`.${activityType}-try-another`);
+        const currentId = tryAnotherButton?.getAttribute(`data-${activityType}-id`);
         
         // ボタンを無効化
         button.disabled = true;

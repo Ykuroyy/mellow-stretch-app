@@ -35,11 +35,13 @@ class HomeController < ApplicationController
     
     # activity_idが指定されていない場合は、今日の活動から取得
     unless activity_id
-      activity_id = case activity_type
+      case activity_type
       when 'stretch'
-        get_todays_stretch.id
+        srand(@today.to_time.to_i)
+        activity_id = Stretch.all.sample.id
       when 'breathing'
-        get_todays_breathing.id
+        srand(@today.to_time.to_i + 1000)
+        activity_id = BreathingExercise.all.sample.id
       end
     end
     
@@ -69,11 +71,13 @@ class HomeController < ApplicationController
     
     # activity_idが指定されていない場合は、今日の活動から取得
     unless activity_id
-      activity_id = case activity_type
+      case activity_type
       when 'stretch'
-        get_todays_stretch.id
+        srand(@today.to_time.to_i)
+        activity_id = Stretch.all.sample.id
       when 'breathing'
-        get_todays_breathing.id
+        srand(@today.to_time.to_i + 1000)
+        activity_id = BreathingExercise.all.sample.id
       end
     end
     
