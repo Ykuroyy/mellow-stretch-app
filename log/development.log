@@ -11828,3 +11828,5 @@ Completed 200 OK in 65ms (Views: 19.7ms | ActiveRecord: 19.6ms | Allocations: 70
   [1m[36mUserActivity Load (0.1ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities"[0m
   [1m[36mUserActivity Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "user_activities"[0m
   [1m[36mAchievement Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "achievements"[0m
+  [1m[36mEncouragementMessage Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "encouragement_messages"[0m
+  [1m[36mEncouragementMessage Load (0.7ms)[0m  [1m[34mSELECT "encouragement_messages".* FROM "encouragement_messages" WHERE "encouragement_messages"."category" = $1 ORDER BY RANDOM() LIMIT $2[0m  [["category", "stretch"], ["LIMIT", 1]]
