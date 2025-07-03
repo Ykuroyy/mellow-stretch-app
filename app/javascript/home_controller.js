@@ -136,12 +136,6 @@ function handleAchievementClick(button) {
         button.style.opacity = '1';
         showNotification('通信エラーが発生しました。もう一度お試しください。', 'error');
       });
-  } catch (error) {
-    console.error('JavaScript Error:', error);
-    button.disabled = false;
-    button.style.opacity = '1';
-    showNotification('JavaScriptエラーが発生しました。', 'error');
-  }
 }
 
 // やり直し機能
