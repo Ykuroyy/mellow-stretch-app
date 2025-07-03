@@ -11823,3 +11823,6 @@ Completed 200 OK in 65ms (Views: 19.7ms | ActiveRecord: 19.6ms | Allocations: 70
   [1m[36mStretch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "stretches"[0m
   [1m[36mBreathingExercise Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "breathing_exercises"[0m
   [1m[36mDailyMessage Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "daily_messages"[0m
+  [1m[36mUserActivity Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "user_activities"[0m
+  [1m[36mAchievement Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "achievements"[0m
+  [1m[36mUserActivity Load (0.1ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities"[0m

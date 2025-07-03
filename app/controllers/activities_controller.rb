@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   def history
-    @activities = UserActivity.recent_activities(10) # 過去10日分を表示
+    @activities = UserActivity.recent_activities(10) # 過去10日分を表示（実際のデータのみ）
     @achievements = Achievement.where(completed: true).where('date >= ?', 10.days.ago.to_date).order(date: :desc, updated_at: :desc)
     @page_title = "最近の活動履歴"
     @page_subtitle = "過去10日間の詳細記録"
