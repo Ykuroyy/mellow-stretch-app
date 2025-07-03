@@ -16,33 +16,95 @@
     </div>
   </div>
 
-  <!-- その日の活動 -->
-  <% if @activities.any? %>
+    <!-- その日の活動記録 -->
+  <% if @achievements.any? || @activities.any? %>
     <div class="content-card">
       <div class="card-header">
         <div class="card-icon">📅</div>
         <div>
-          <h2 class="card-title">この日の活動</h2>
-          <div class="card-subtitle"><%= @activities.count %>件の活動を記録</div>
+          <h2 class="card-title">この日の活動記録</h2>
+          <div class="card-subtitle">
+            <% if @achievements.any? %>
+              <%= @achievements.count %>件完了
+              <% if @activities.any? %>
+                / <%= @activities.count %>件表示
+              <% end %>
+            <% elsif @activities.any? %>
+              <%= @activities.count %>件表示
+            <% end %>
+          </div>
         </div>
       </div>
       <div class="card-content">
-        <% @activities.each do |activity| %>
-          <div class="activity-detail-item large">
-            <div class="activity-icon large"><%= activity.activity_icon %></div>
-            <div class="activity-content">
-              <div class="activity-name large"><%= activity.activity_name %></div>
-              <div class="activity-description large"><%= activity.activity_description %></div>
-              <div class="activity-category large"><%= activity.activity_category %></div>
-              <div class="activity-time">
-                <%= activity.created_at.strftime("%H:%M") %>に記録
+        <% 
+          # 完了記録を基準にして表示
+          all_activities = []
+          
+          # 完了した活動を追加（activity_type + activity_idでマッチ）
+          @achievements.each do |achievement|
+            activity = @activities.find { |a| a.activity_type == achievement.activity_type && a.activity_id == achievement.activity_id }
+            if activity
+              all_activities << { activity: activity, achievement: achievement, is_completed: true }
+            else
+              all_activities << { activity: nil, achievement: achievement, is_completed: true }
+            end
+          end
+          
+          # 未完了の活動を追加（activity_type + activity_idでマッチしないもの）
+          @activities.each do |activity|
+            unless @achievements.any? { |a| a.activity_type == activity.activity_type && a.activity_id == activity.activity_id }
+              all_activities << { activity: activity, achievement: nil, is_completed: false }
+            end
+          end
+          
+          # 完了時刻でソート
+          all_activities.sort_by! { |item| item[:achievement]&.updated_at || item[:activity]&.created_at || Time.current }
+        %>
+        
+        <% all_activities.each do |item| %>
+          <% activity = item[:activity] %>
+          <% achievement = item[:achievement] %>
+          <% is_completed = item[:is_completed] %>
+          
+          <div class="activity-detail-item large <%= 'completed' if is_completed %>">
+            <% if activity %>
+              <div class="activity-icon large"><%= activity.activity_icon %></div>
+              <div class="activity-content">
+                <div class="activity-name large"><%= activity.activity_name %></div>
+                <div class="activity-description large"><%= activity.activity_description %></div>
+                <div class="activity-category large"><%= activity.activity_category %></div>
+                <div class="activity-time">
+                  <% if is_completed %>
+                    <span class="completion-time">✅ <%= achievement.updated_at.in_time_zone('Tokyo').strftime("%H:%M") %>に完了</span>
+                  <% else %>
+                    <span class="display-time">📅 <%= activity.created_at.in_time_zone('Tokyo').strftime("%H:%M") %>に表示</span>
+                  <% end %>
+                </div>
               </div>
-            </div>
+            <% else %>
+              <div class="activity-icon large"><%= achievement.activity_type == 'stretch' ? '🧘‍♀️' : '💨' %></div>
+              <div class="activity-content">
+                <div class="activity-name large"><%= achievement.activity_type == 'stretch' ? 'ストレッチ' : '呼吸法' %></div>
+                <div class="activity-description large">詳細情報は表示されていません</div>
+                <div class="activity-category large"><%= achievement.activity_type == 'stretch' ? 'ストレッチ' : '呼吸法' %></div>
+                <div class="activity-time">
+                  <span class="completion-time">✅ <%= achievement.updated_at.in_time_zone('Tokyo').strftime("%H:%M") %>に完了</span>
+                </div>
+              </div>
+            <% end %>
+            <% if is_completed %>
+              <div class="activity-status">
+                <span class="completion-badge">完了</span>
+              </div>
+            <% end %>
           </div>
         <% end %>
       </div>
     </div>
-  <% else %>
+  <% end %>
+
+  <!-- 記録がない場合 -->
+  <% if @achievements.empty? && @activities.empty? %>
     <div class="content-card">
       <div class="card-content">
         <div class="empty-state">
@@ -61,9 +123,16 @@
     </div>
   </div>
 
-  <!-- 下部の戻るボタン -->
+  <!-- 戻るボタン -->
   <div class="back-buttons bottom">
-    <%= link_to "← 戻る", activities_monthly_path, class: "back-link" %>
-    <%= link_to "← トップに戻る", root_path, class: "back-link top-home" %>
+    <%= link_to activities_monthly_path, class: "back-link" do %>
+      <span class="back-icon">📊</span>
+      <span class="back-text">月次記録に戻る</span>
+    <% end %>
+    <%= link_to root_path, class: "back-link top-home" do %>
+      <span class="back-icon">🏠</span>
+      <span class="back-text">トップに戻る</span>
+    <% end %>
   </div>
+</div> 
 </div> 

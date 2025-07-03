@@ -431,6 +431,16 @@ body {
   box-shadow: 0 6px 20px rgba(0, 184, 148, 0.4);
 }
 
+/* 戻るボタンのアイコンとテキスト */
+.back-icon {
+  font-size: 1.2rem;
+  margin-right: 8px;
+}
+
+.back-text {
+  font-weight: 500;
+}
+
 .activity-detail-item {
   display: flex;
   align-items: center;
@@ -641,6 +651,16 @@ body {
   border-left: 6px solid #6c5ce7;
 }
 
+.activity-detail-item.completed {
+  background: linear-gradient(135deg, rgba(144, 238, 144, 0.1), rgba(50, 205, 50, 0.1));
+  border-left-color: #32cd32;
+}
+
+.activity-detail-item.completed:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(50, 205, 50, 0.2);
+}
+
 .activity-icon.large {
   font-size: 2.5rem;
   margin-right: 20px;
@@ -678,6 +698,81 @@ body {
   color: #636e72;
   font-weight: 400;
   font-style: italic;
+}
+
+.completion-time {
+  color: #32cd32;
+  font-weight: 500;
+}
+
+.display-time {
+  color: #636e72;
+  font-style: italic;
+}
+
+.activity-status {
+  margin-left: 10px;
+}
+
+/* 完了記録のスタイル */
+.achievement-detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 15px;
+  background: linear-gradient(135deg, rgba(144, 238, 144, 0.1), rgba(50, 205, 50, 0.1));
+  border-radius: 12px;
+  border-left: 4px solid #32cd32;
+  transition: all 0.3s ease;
+}
+
+.achievement-detail-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(50, 205, 50, 0.2);
+}
+
+.achievement-detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.achievement-icon {
+  font-size: 1.8rem;
+  margin-right: 15px;
+  width: 40px;
+  text-align: center;
+}
+
+.achievement-content {
+  flex: 1;
+}
+
+.achievement-type {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3436;
+  margin-bottom: 5px;
+}
+
+.achievement-time {
+  font-size: 0.9rem;
+  color: #636e72;
+  font-style: italic;
+}
+
+.achievement-status {
+  margin-left: 10px;
+}
+
+.completion-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #32cd32, #228b22);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* グラフエラー表示のスタイル */
@@ -801,6 +896,43 @@ body {
   border-top: 1px solid #FFE5F1;
 }
 
+.achievement-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.try-another-button {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 152, 0, 0.1));
+  border: 2px solid #ffc107;
+  color: #ff8f00;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
+}
+
+.try-another-button:hover {
+  background: linear-gradient(135deg, #ffc107, #ff8f00);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
+}
+
+.try-another-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .achievement-button {
   display: flex;
   align-items: center;
@@ -864,6 +996,51 @@ body {
 
 .achievement-text {
   font-size: 1rem;
+}
+
+/* やり直しボタン */
+.reset-achievement-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+
+.stretch-reset-button {
+  background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(255, 182, 193, 0.3);
+}
+
+.stretch-reset-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 182, 193, 0.4);
+}
+
+.breathing-reset-button {
+  background: linear-gradient(135deg, #B0E0E6 0%, #87CEEB 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(176, 224, 230, 0.3);
+}
+
+.breathing-reset-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(176, 224, 230, 0.4);
+}
+
+.reset-achievement-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* リセットボタン */
@@ -1065,4 +1242,283 @@ body {
   font-size: 0.9rem;
   color: #636e72;
   font-weight: 300;
+}
+
+/* 設定画面 */
+.settings-card {
+  background: linear-gradient(135deg, #FFE5F1 0%, #FFF0F5 100%);
+}
+
+.settings-icon {
+  color: #FF69B4;
+}
+
+.setting-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #FFE5F1;
+}
+
+.setting-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.setting-title {
+  font-size: 1.2rem;
+  color: #2d3436;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+/* テーマ設定 */
+.theme-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.theme-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.theme-option.active {
+  border-color: #FF69B4;
+  box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+}
+
+.theme-preview {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+}
+
+.pink-theme { background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%); }
+.blue-theme { background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%); }
+.green-theme { background: linear-gradient(135deg, #90EE90 0%, #32CD32 100%); }
+.purple-theme { background: linear-gradient(135deg, #DDA0DD 0%, #9370DB 100%); }
+
+.theme-name {
+  font-size: 0.9rem;
+  color: #2d3436;
+  font-weight: 500;
+}
+
+/* データ管理 */
+.data-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.data-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 15px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.export-button {
+  background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
+}
+
+.export-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(135, 206, 235, 0.4);
+}
+
+/* フッター設定ボタン */
+.settings-section {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #FFE5F1;
+  display: flex;
+  gap: 1rem;
+}
+
+.settings-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex: 1;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, #DDA0DD 0%, #9370DB 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(221, 160, 221, 0.3);
+}
+
+.settings-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(221, 160, 221, 0.4);
+}
+
+/* テーマ変数 */
+:root {
+  --primary-color: #FF69B4;
+  --secondary-color: #FF1493;
+  --accent-color: #87CEEB;
+  --background-color: #f5f7fa;
+  --card-background: rgba(255, 255, 255, 0.95);
+}
+
+.theme-blue {
+  --primary-color: #4682B4;
+  --secondary-color: #87CEEB;
+  --accent-color: #FF69B4;
+}
+
+.theme-green {
+  --primary-color: #32CD32;
+  --secondary-color: #90EE90;
+  --accent-color: #FF69B4;
+}
+
+.theme-purple {
+  --primary-color: #9370DB;
+  --secondary-color: #DDA0DD;
+  --accent-color: #FF69B4;
+}
+
+/* テーマ変更通知 */
+.theme-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.theme-notification.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.theme-notification-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.theme-notification-icon {
+  font-size: 1.2rem;
+}
+
+.theme-notification-text {
+  font-weight: 500;
+}
+
+/* テーマカラーが実際に反映されるスタイル */
+.app-title {
+  color: var(--primary-color) !important;
+}
+
+.content-card {
+  border: 1px solid rgba(255, 105, 180, 0.1);
+}
+
+.card-icon.stretch-icon {
+  color: var(--primary-color) !important;
+}
+
+.card-icon.breathing-icon {
+  color: var(--accent-color) !important;
+}
+
+.card-icon.message-icon {
+  color: var(--secondary-color) !important;
+}
+
+.duration-badge {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)) !important;
+}
+
+.category-badge {
+  background: linear-gradient(45deg, var(--secondary-color), var(--primary-color)) !important;
+}
+
+.achievement-button.stretch-button {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+}
+
+.achievement-button.breathing-button {
+  background: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%) !important;
+}
+
+.reset-button {
+  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%) !important;
+}
+
+.settings-button {
+  background: linear-gradient(135deg, var(--accent-color) 0%, var(--secondary-color) 100%) !important;
+}
+
+.back-link {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+}
+
+.back-link:hover {
+  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%) !important;
+}
+
+.monthly-button {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+}
+
+.monthly-button:hover {
+  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%) !important;
+}
+
+.header-link {
+  color: var(--primary-color) !important;
+}
+
+.header-link:hover {
+  color: var(--secondary-color) !important;
+}
+
+.social-link {
+  color: var(--primary-color) !important;
+}
+
+.social-link:hover {
+  color: var(--secondary-color) !important;
 }

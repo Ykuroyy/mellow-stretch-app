@@ -1,0 +1,164 @@
+<div class="container">
+  <!-- ヘッダー -->
+  <div class="header">
+    <h1 class="app-title">朝ストレッチ・美呼吸</h1>
+    <p class="subtitle">設定</p>
+  </div>
+
+  <!-- 設定カード -->
+  <div class="content-card settings-card">
+    <div class="card-header">
+      <div class="card-icon settings-icon">⚙️</div>
+      <div>
+        <h2 class="card-title">アプリ設定</h2>
+        <div class="card-subtitle">あなた好みにカスタマイズ</div>
+      </div>
+    </div>
+    <div class="card-content">
+      
+      <!-- テーマ設定 -->
+      <div class="setting-section">
+        <h3 class="setting-title">テーマカラー</h3>
+        <div class="theme-options">
+          <button class="theme-option active" data-theme="pink">
+            <div class="theme-preview pink-theme"></div>
+            <span class="theme-name">ピンク</span>
+          </button>
+          <button class="theme-option" data-theme="blue">
+            <div class="theme-preview blue-theme"></div>
+            <span class="theme-name">ブルー</span>
+          </button>
+          <button class="theme-option" data-theme="green">
+            <div class="theme-preview green-theme"></div>
+            <span class="theme-name">グリーン</span>
+          </button>
+          <button class="theme-option" data-theme="purple">
+            <div class="theme-preview purple-theme"></div>
+            <span class="theme-name">パープル</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- データ管理 -->
+      <div class="setting-section">
+        <h3 class="setting-title">データ管理</h3>
+        <div class="data-options">
+          <%= link_to export_data_path, class: "data-button export-button" do %>
+            <span class="button-icon">📤</span>
+            <span class="button-text">データをエクスポート</span>
+          <% end %>
+          <button class="data-button reset-button" onclick="confirmReset()">
+            <span class="button-icon">🔄</span>
+            <span class="button-text">データをリセット</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 戻るボタン -->
+  <div class="back-buttons">
+    <%= link_to root_path, class: "back-link top-home" do %>
+      <span class="back-icon">🏠</span>
+      <span class="back-text">トップに戻る</span>
+    <% end %>
+  </div>
+
+  <!-- フッター -->
+  <div class="footer">
+    <div class="footer-text">
+      🌸 あなた好みにカスタマイズして、より快適に 🌸
+    </div>
+  </div>
+</div>
+
+<script>
+  // テーマ切り替え機能
+  document.querySelectorAll('.theme-option').forEach(option => {
+    option.addEventListener('click', function() {
+      const theme = this.getAttribute('data-theme');
+      document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('active'));
+      this.classList.add('active');
+      applyTheme(theme);
+      localStorage.setItem('selectedTheme', theme);
+      
+      // 成功メッセージを表示
+      showThemeChangeNotification(theme);
+    });
+  });
+
+  function applyTheme(theme) {
+    const root = document.documentElement;
+    root.classList.remove('theme-pink', 'theme-blue', 'theme-green', 'theme-purple');
+    root.classList.add(`theme-${theme}`);
+    
+    // カラーパレットを更新
+    updateColorPalette(theme);
+  }
+  
+  function updateColorPalette(theme) {
+    const colors = {
+      pink: { primary: '#FF69B4', secondary: '#FF1493', accent: '#87CEEB' },
+      blue: { primary: '#4682B4', secondary: '#87CEEB', accent: '#FF69B4' },
+      green: { primary: '#32CD32', secondary: '#90EE90', accent: '#FF69B4' },
+      purple: { primary: '#9370DB', secondary: '#DDA0DD', accent: '#FF69B4' }
+    };
+    
+    const color = colors[theme];
+    const root = document.documentElement;
+    root.style.setProperty('--primary-color', color.primary);
+    root.style.setProperty('--secondary-color', color.secondary);
+    root.style.setProperty('--accent-color', color.accent);
+  }
+  
+  function showThemeChangeNotification(theme) {
+    const themeNames = {
+      pink: 'ピンク',
+      blue: 'ブルー', 
+      green: 'グリーン',
+      purple: 'パープル'
+    };
+    
+    const notification = document.createElement('div');
+    notification.className = 'theme-notification';
+    notification.innerHTML = `
+      <div class="theme-notification-content">
+        <span class="theme-notification-icon">🎨</span>
+        <span class="theme-notification-text">テーマを${themeNames[theme]}に変更しました！</span>
+      </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.classList.add('show');
+    }, 100);
+    
+    setTimeout(() => {
+      notification.classList.remove('show');
+      setTimeout(() => {
+        notification.remove();
+      }, 300);
+    }, 2000);
+  }
+
+  function confirmReset() {
+    if (confirm('本当にすべてのデータをリセットしますか？')) {
+      window.location.href = '/home/reset_data';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('selectedTheme') || 'pink';
+    applyTheme(savedTheme);
+    
+    // 保存されたテーマのボタンをアクティブにする
+    document.querySelectorAll('.theme-option').forEach(option => {
+      if (option.getAttribute('data-theme') === savedTheme) {
+        option.classList.add('active');
+      }
+    });
+  });
+</script> 
+</script> 
