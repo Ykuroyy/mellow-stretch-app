@@ -46,13 +46,13 @@
           </div>
         <% else %>
           <div class="achievement-buttons">
-            <%= form_with url: home_record_achievement_path, method: :post, local: true, style: "display: inline;" do |form| %>
+            <%= form_with url: record_achievement_path, method: :post, local: true, style: "display: inline;" do |form| %>
               <%= form.hidden_field :activity_type, value: 'stretch' %>
               <%= form.hidden_field :activity_id, value: @stretch.id %>
               <%= form.submit "🧘‍♀️ ストレッチしたよ", class: "achievement-button stretch-button", style: "background: none; border: none; cursor: pointer; font-size: inherit; color: inherit;" %>
             <% end %>
             
-            <%= link_to "🔄 別のストレッチも試す", home_get_another_stretch_path(current_id: @stretch.id), 
+            <%= link_to "🔄 別のストレッチも試す", get_another_stretch_path(current_id: @stretch.id), 
                 class: "try-another-button stretch-try-another", 
                 style: "text-decoration: none; display: inline-block; margin-left: 10px;" %>
           </div>
@@ -95,13 +95,13 @@
           </div>
         <% else %>
           <div class="achievement-buttons">
-            <%= form_with url: home_record_achievement_path, method: :post, local: true, style: "display: inline;" do |form| %>
+            <%= form_with url: record_achievement_path, method: :post, local: true, style: "display: inline;" do |form| %>
               <%= form.hidden_field :activity_type, value: 'breathing' %>
               <%= form.hidden_field :activity_id, value: @breathing.id %>
               <%= form.submit "💨 呼吸したよ", class: "achievement-button breathing-button", style: "background: none; border: none; cursor: pointer; font-size: inherit; color: inherit;" %>
             <% end %>
             
-            <%= link_to "🔄 別の呼吸法も試す", home_get_another_breathing_path(current_id: @breathing.id), 
+            <%= link_to "🔄 別の呼吸法も試す", get_another_breathing_path(current_id: @breathing.id), 
                 class: "try-another-button breathing-try-another", 
                 style: "text-decoration: none; display: inline-block; margin-left: 10px;" %>
           </div>
