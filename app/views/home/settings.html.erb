@@ -144,8 +144,22 @@
   }
 
   function confirmReset() {
-    if (confirm('本当にすべてのデータをリセットしますか？')) {
-      window.location.href = '/home/reset_data';
+    if (confirm('本当にすべてのデータをリセットしますか？この操作は取り消せません。')) {
+      // POSTリクエストでデータをリセット
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = '/home/reset_data';
+      
+      // CSRFトークンを追加
+      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+      const csrfInput = document.createElement('input');
+      csrfInput.type = 'hidden';
+      csrfInput.name = 'authenticity_token';
+      csrfInput.value = csrfToken;
+      form.appendChild(csrfInput);
+      
+      document.body.appendChild(form);
+      form.submit();
     }
   }
 
