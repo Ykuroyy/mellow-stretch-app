@@ -4778,3 +4778,61 @@ Processing by HomeController#index as HTML
 Completed 200 OK in 22ms (Views: 8.7ms | ActiveRecord: 3.0ms | Allocations: 11350)
 
 
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for ::1 at 2025-07-03 09:50:42 +0900
+Processing by HomeController#index as HTML
+  [1m[36mStretch Load (117.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches"[0m
+  ↳ app/controllers/home_controller.rb:23:in `get_todays_stretch'
+  [1m[36mBreathingExercise Load (7.8ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises"[0m
+  ↳ app/controllers/home_controller.rb:29:in `get_todays_breathing'
+  [1m[36mDailyMessage Load (0.7ms)[0m  [1m[34mSELECT "daily_messages".* FROM "daily_messages"[0m
+  ↳ app/controllers/home_controller.rb:35:in `get_todays_message'
+  [1m[36mUserActivity Load (0.4ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-07-03"], ["activity_type", "stretch"], ["activity_id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mUserActivity Create (0.8ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-07-03"], ["activity_type", "stretch"], ["activity_id", 3], ["created_at", "2025-07-03 00:50:42.791724"], ["updated_at", "2025-07-03 00:50:42.791724"]]
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mTRANSACTION (32.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mUserActivity Load (0.2ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE "user_activities"."date" = $1 AND "user_activities"."activity_type" = $2 AND "user_activities"."activity_id" = $3 LIMIT $4[0m  [["date", "2025-07-03"], ["activity_type", "breathing"], ["activity_id", 4], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mUserActivity Create (0.6ms)[0m  [1m[32mINSERT INTO "user_activities" ("date", "activity_type", "activity_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2025-07-03"], ["activity_type", "breathing"], ["activity_id", 4], ["created_at", "2025-07-03 00:50:42.826278"], ["updated_at", "2025-07-03 00:50:42.826278"]]
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/user_activity.rb:9:in `record_today_activity'
+  [1m[36mUserActivity Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "user_activities"."date" AS "user_activities_date", "user_activities"."activity_type" AS "user_activities_activity_type" FROM "user_activities" WHERE (date >= '2025-06-03') GROUP BY "user_activities"."date", "user_activities"."activity_type" ORDER BY "user_activities"."date" ASC[0m
+  ↳ app/models/user_activity.rb:29:in `monthly_stats'
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mUserActivity Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "user_activities" WHERE (date >= '2025-06-30') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:66
+  [1m[36mUserActivity Load (0.6ms)[0m  [1m[34mSELECT "user_activities".* FROM "user_activities" WHERE (date >= '2025-06-30') ORDER BY "user_activities"."date" DESC, "user_activities"."created_at" DESC[0m
+  ↳ app/views/home/index.html.erb:79:in `group_by'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.1ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mStretch Load (0.2ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mCACHE Stretch Load (0.0ms)[0m  [1m[34mSELECT "stretches".* FROM "stretches" WHERE "stretches"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:56:in `activity_details'
+  [1m[36mBreathingExercise Load (0.1ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  [1m[36mCACHE BreathingExercise Load (0.0ms)[0m  [1m[34mSELECT "breathing_exercises".* FROM "breathing_exercises" WHERE "breathing_exercises"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/models/user_activity.rb:58:in `activity_details'
+  Rendered home/index.html.erb within layouts/application (Duration: 8.9ms | Allocations: 4911)
+  Rendered layout layouts/application.html.erb (Duration: 9.9ms | Allocations: 6141)
+Completed 200 OK in 181ms (Views: 8.7ms | ActiveRecord: 246.3ms | Allocations: 17680)
+
+
