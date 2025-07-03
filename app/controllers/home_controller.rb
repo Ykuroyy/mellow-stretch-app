@@ -26,12 +26,14 @@ class HomeController < ApplicationController
   end
 
   def record_achievement
-    # JSONパラメータからactivity_typeとactivity_idを取得
-    request_data = params[:activity_type] ? params : JSON.parse(request.body.read)
-    activity_type = request_data['activity_type']
-    activity_id = request_data['activity_id']
+    # パラメータからactivity_typeとactivity_idを取得
+    activity_type = params[:activity_type] || params.dig(:home, :activity_type)
+    activity_id = params[:activity_id]
     date = Date.current
     @today = date  # @todayを設定
+    
+    # デバッグログ
+    Rails.logger.info "record_achievement called with activity_type: #{activity_type}, activity_id: #{activity_id}"
     
     # activity_idが指定されていない場合は、今日の活動から取得
     unless activity_id
@@ -63,9 +65,9 @@ class HomeController < ApplicationController
   end
 
   def reset_achievement
-    request_data = params[:activity_type] ? params : JSON.parse(request.body.read)
-    activity_type = request_data['activity_type']
-    activity_id = request_data['activity_id']
+    # パラメータからactivity_typeとactivity_idを取得
+    activity_type = params[:activity_type] || params.dig(:home, :activity_type)
+    activity_id = params[:activity_id]
     date = Date.current
     @today = date  # @todayを設定
     
@@ -186,8 +188,12 @@ class HomeController < ApplicationController
   def get_todays_achievements
     today = Date.current
     @today = today  # @todayを設定
-    stretch_id = get_todays_stretch.id
-    breathing_id = get_todays_breathing.id
+    
+    # 今日のストレッチと呼吸法のIDを取得
+    srand(@today.to_time.to_i)
+    stretch_id = Stretch.all.sample.id
+    srand(@today.to_time.to_i + 1000)
+    breathing_id = BreathingExercise.all.sample.id
     
     {
       stretch: Achievement.find_by(date: today, activity_type: 'stretch', activity_id: stretch_id)&.completed || false,

@@ -178,6 +178,11 @@
         <span class="settings-icon">⚙️</span>
         <span class="settings-text">設定</span>
       <% end %>
+      
+      <!-- 本番環境テスト用ボタン -->
+      <button onclick="testJavaScript()" style="margin-left: 10px; padding: 8px 16px; background: #ff6b9d; color: white; border: none; border-radius: 8px; cursor: pointer;">
+        🧪 JSテスト
+      </button>
     </div>
   </div>
 </div>
@@ -185,6 +190,8 @@
 <script>
   // 実績ボタンの機能
   document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded - Setting up event listeners');
+    
     // テーマの読み込み
     const savedTheme = localStorage.getItem('selectedTheme') || 'pink';
     applyTheme(savedTheme);
@@ -211,10 +218,14 @@
     });
     
         function handleAchievementClick(button) {
-      const activityType = button.getAttribute('data-activity-type');
-      const achievementSection = button.closest('.achievement-section');
-      const tryAnotherButton = achievementSection.querySelector(`.${activityType}-try-another`);
-      const currentId = tryAnotherButton?.getAttribute(`data-${activityType}-id`);
+      try {
+        const activityType = button.getAttribute('data-activity-type');
+        const achievementSection = button.closest('.achievement-section');
+        const tryAnotherButton = achievementSection.querySelector(`.${activityType}-try-another`);
+        const currentId = tryAnotherButton?.getAttribute(`data-${activityType}-id`);
+        
+        console.log('Activity Type:', activityType);
+        console.log('Current ID:', currentId);
         
         // ボタンを無効化
         button.disabled = true;
@@ -279,6 +290,11 @@
           button.style.opacity = '1';
           showNotification('エラーが発生しました。もう一度お試しください。', 'error');
         });
+      } catch (error) {
+        console.error('JavaScript Error:', error);
+        button.disabled = false;
+        button.style.opacity = '1';
+        showNotification('JavaScriptエラーが発生しました。', 'error');
       }
       
       // やり直し機能
@@ -445,6 +461,12 @@
       setTimeout(() => {
         notification.remove();
       }, 3000);
+    }
+    
+    // テスト用関数
+    function testJavaScript() {
+      alert('JavaScript is working!');
+      console.log('Test function called');
     }
     
     // 応援メッセージモーダル表示関数
