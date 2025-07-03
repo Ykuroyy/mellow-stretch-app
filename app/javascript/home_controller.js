@@ -1,46 +1,41 @@
 
-// シンプルな初期化
-document.addEventListener('turbo:load', function() {
-  console.log('DOM loaded, setting up event listeners');
-  setupEventListeners();
+// グローバルクリックイベントリスナー
+const globalClickHandler = (event) => {
+  const button = event.target.closest('button');
+  if (!button) return;
+
+  // ボタンのクラスに応じて処理を振り分け
+  if (button.classList.contains('achievement-button')) {
+    event.preventDefault();
+    handleAchievementClick(button);
+  } else if (button.classList.contains('reset-achievement-button')) {
+    event.preventDefault();
+    handleResetAchievement(button);
+  } else if (button.classList.contains('try-another-button')) {
+    event.preventDefault();
+    handleTryAnother(button);
+  }
+};
+
+// イベントリスナーの初期化
+const initializeEventListeners = () => {
+  // 既存のリスナーを削除
+  document.removeEventListener('click', globalClickHandler);
+  // 新しいリスナーを追加
+  document.addEventListener('click', globalClickHandler);
+  console.log('Event listeners initialized.');
+};
+
+// Turbo Driveの読み込みイベントに対応
+document.addEventListener('turbo:load', () => {
+  initializeEventListeners();
 });
 
-// イベントリスナーの設定
-function setupEventListeners() {
-  console.log('Setting up event listeners...');
-  
-  // 既存のイベントリスナーを削除
-  document.removeEventListener('click', handleGlobalClick);
-  
-  // グローバルクリックイベントリスナーを追加
-  document.addEventListener('click', handleGlobalClick);
-  
-  console.log('Event listeners setup completed');
-}
-
-// グローバルクリックハンドラー
-function handleGlobalClick(event) {
-  const target = event.target.closest('button');
-  if (!target) return;
-  
-  console.log('Button clicked:', target.className, target.textContent.trim());
-  
-  if (target.classList.contains('achievement-button')) {
-    event.preventDefault();
-    event.stopPropagation();
-    console.log('Achievement button clicked');
-    handleAchievementClick(target);
-  } else if (target.classList.contains('reset-achievement-button')) {
-    event.preventDefault();
-    event.stopPropagation();
-    console.log('Reset button clicked');
-    handleResetAchievement(target);
-  } else if (target.classList.contains('try-another-button')) {
-    event.preventDefault();
-    event.stopPropagation();
-    console.log('Try another button clicked');
-    handleTryAnother(target);
-  }
+// 初期読み込みにも対応
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeEventListeners);
+} else {
+  initializeEventListeners();
 }
 
 // CSRFトークン取得関数
