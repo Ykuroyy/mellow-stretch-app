@@ -275,10 +275,64 @@
     }, 500);
   });
   
+  // さらに確実な初期化（本番環境用）
+  setTimeout(() => {
+    console.log('Final initialization check...');
+    if (typeof testJavaScript === 'undefined') {
+      console.error('testJavaScript function not found, redefining...');
+      // testJavaScript関数を再定義
+      window.testJavaScript = function() {
+        alert('JavaScript is working!');
+        console.log('Test function called');
+        setupEventListeners();
+      };
+    }
+    setupEventListeners();
+  }, 1000);
+  
   // CSRFトークン取得関数
   function getCSRFToken() {
     const token = document.querySelector('meta[name="csrf-token"]');
     return token ? token.getAttribute('content') : null;
+  }
+  
+  // テスト用関数
+  function testJavaScript() {
+    alert('JavaScript is working!');
+    console.log('Test function called');
+    
+    // ボタンの存在確認
+    const achievementButtons = document.querySelectorAll('.achievement-button');
+    const resetButtons = document.querySelectorAll('.reset-achievement-button');
+    const tryAnotherButtons = document.querySelectorAll('.try-another-button');
+    
+    console.log('Achievement buttons found:', achievementButtons.length);
+    console.log('Reset buttons found:', resetButtons.length);
+    console.log('Try another buttons found:', tryAnotherButtons.length);
+    
+    // ボタンの詳細情報
+    achievementButtons.forEach((btn, index) => {
+      console.log(`Achievement button ${index}:`, {
+        className: btn.className,
+        dataActivityType: btn.getAttribute('data-activity-type'),
+        textContent: btn.textContent.trim()
+      });
+    });
+    
+    // CSRFトークンの確認
+    const csrfToken = getCSRFToken();
+    console.log('CSRF token found:', !!csrfToken);
+    console.log('CSRF token value:', csrfToken ? csrfToken.substring(0, 10) + '...' : 'null');
+    
+    // イベントリスナーの再設定
+    setupEventListeners();
+    console.log('Event listeners re-setup completed');
+    
+    // 手動でボタンクリックをテスト
+    if (achievementButtons.length > 0) {
+      console.log('Testing first achievement button click...');
+      achievementButtons[0].click();
+    }
   }
   
     // 実績ボタンの処理関数
@@ -337,8 +391,8 @@
           if (data.success) {
             // 成功時の処理
             const achievementSection = button.closest('.achievement-section');
-            const tryAnotherButton = achievementSection.querySelector(`.${activityType}-try-another`);
-            const currentId = tryAnotherButton?.getAttribute(`data-${activityType}-id`);
+            const currentTryAnotherButton = achievementSection.querySelector(`.${activityType}-try-another`);
+            const currentId = currentTryAnotherButton?.getAttribute(`data-${activityType}-id`);
             
             achievementSection.innerHTML = `
               <div class="achievement-completed">
@@ -362,8 +416,8 @@
             resetButton.addEventListener('click', (e) => handleResetAchievement(e));
             
             // 別のストレッチ・呼吸法を試すボタンのイベントリスナーを追加
-            const tryAnotherButton = achievementSection.querySelector('.try-another-button');
-            tryAnotherButton.addEventListener('click', (e) => handleTryAnother(e));
+            const newTryAnotherButton = achievementSection.querySelector('.try-another-button');
+            newTryAnotherButton.addEventListener('click', (e) => handleTryAnother(e));
             
             // 成功メッセージを表示
             showNotification(data.message, 'success');
