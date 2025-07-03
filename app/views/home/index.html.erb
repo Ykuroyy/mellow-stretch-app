@@ -188,62 +188,138 @@
 </div>
 
 <script>
-  // 実績ボタンの機能
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM Content Loaded - Setting up event listeners');
+  // グローバル変数と関数の定義
+  let isInitialized = false;
+  
+  // 初期化関数
+  function initializeApp() {
+    if (isInitialized) return;
+    isInitialized = true;
     
-    // テーマの読み込み
-    const savedTheme = localStorage.getItem('selectedTheme') || 'pink';
-    applyTheme(savedTheme);
+    console.log('Initializing app...');
+    console.log('Document ready state:', document.readyState);
+    console.log('Window loaded:', window.loaded);
     
-    // 実績ボタンの機能
-    document.querySelectorAll('.achievement-button').forEach(button => {
-      button.addEventListener('click', function() {
-        handleAchievementClick(this);
+    try {
+      // テーマの読み込み
+      const savedTheme = localStorage.getItem('selectedTheme') || 'pink';
+      applyTheme(savedTheme);
+      
+      // イベントリスナーの設定
+      setupEventListeners();
+      
+      console.log('App initialization completed successfully');
+    } catch (error) {
+      console.error('Error during app initialization:', error);
+      // 再試行
+      setTimeout(() => {
+        console.log('Retrying initialization...');
+        isInitialized = false;
+        initializeApp();
+      }, 1000);
+    }
+  }
+  
+  // イベントリスナーの設定関数
+  function setupEventListeners() {
+    console.log('Setting up event listeners...');
+    
+    try {
+      // 実績ボタンの機能
+      const achievementButtons = document.querySelectorAll('.achievement-button');
+      console.log('Found achievement buttons:', achievementButtons.length);
+      achievementButtons.forEach((button, index) => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('Achievement button clicked:', index);
+          handleAchievementClick(this);
+        });
       });
-    });
-    
-    // やり直しボタンの機能
-    document.querySelectorAll('.reset-achievement-button').forEach(button => {
-      button.addEventListener('click', function() {
-        handleResetAchievement(this);
+      
+      // やり直しボタンの機能
+      const resetButtons = document.querySelectorAll('.reset-achievement-button');
+      console.log('Found reset buttons:', resetButtons.length);
+      resetButtons.forEach((button, index) => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('Reset button clicked:', index);
+          handleResetAchievement(this);
+        });
       });
-    });
-    
-    // 別のストレッチ・呼吸法を試すボタンの機能
-    document.querySelectorAll('.try-another-button').forEach(button => {
-      button.addEventListener('click', function() {
-        handleTryAnother(this);
+      
+      // 別のストレッチ・呼吸法を試すボタンの機能
+      const tryAnotherButtons = document.querySelectorAll('.try-another-button');
+      console.log('Found try another buttons:', tryAnotherButtons.length);
+      tryAnotherButtons.forEach((button, index) => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('Try another button clicked:', index);
+          handleTryAnother(this);
+        });
       });
-    });
-    
-        function handleAchievementClick(button) {
-      try {
-        const activityType = button.getAttribute('data-activity-type');
-        const achievementSection = button.closest('.achievement-section');
-        const tryAnotherButton = achievementSection.querySelector(`.${activityType}-try-another`);
-        const currentId = tryAnotherButton?.getAttribute(`data-${activityType}-id`);
-        
-        console.log('Activity Type:', activityType);
-        console.log('Current ID:', currentId);
-        
-        // ボタンを無効化
-        button.disabled = true;
-        button.style.opacity = '0.6';
-        
-        fetch('/home/record_achievement', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-          },
-          body: JSON.stringify({
-            activity_type: activityType,
-            activity_id: currentId
-          })
+      
+      console.log('Event listeners setup completed successfully');
+    } catch (error) {
+      console.error('Error setting up event listeners:', error);
+    }
+  }
+  
+  // DOMContentLoadedイベントリスナー
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+  } else {
+    initializeApp();
+  }
+  
+  // CSRFトークン取得関数
+  function getCSRFToken() {
+    const token = document.querySelector('meta[name="csrf-token"]');
+    return token ? token.getAttribute('content') : null;
+  }
+  
+    // 実績ボタンの処理関数
+  function handleAchievementClick(button) {
+    try {
+      const activityType = button.getAttribute('data-activity-type');
+      const achievementSection = button.closest('.achievement-section');
+      const tryAnotherButton = achievementSection.querySelector(`.${activityType}-try-another`);
+      const currentId = tryAnotherButton?.getAttribute(`data-${activityType}-id`);
+      
+      console.log('Activity Type:', activityType);
+      console.log('Current ID:', currentId);
+      
+      // CSRFトークンの取得
+      const csrfToken = getCSRFToken();
+      if (!csrfToken) {
+        console.error('CSRF token not found');
+        showNotification('セキュリティエラーが発生しました。', 'error');
+        return;
+      }
+      
+      // ボタンを無効化
+      button.disabled = true;
+      button.style.opacity = '0.6';
+      
+      fetch('/home/record_achievement', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify({
+          activity_type: activityType,
+          activity_id: currentId
         })
-        .then(response => response.json())
+      })
+        .then(response => {
+          console.log('Response status:', response.status);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
         .then(data => {
+          console.log('Response data:', data);
           if (data.success) {
             // 成功時の処理
             const achievementSection = button.closest('.achievement-section');
@@ -285,10 +361,16 @@
           }
         })
         .catch(error => {
-          console.error('Error:', error);
+          console.error('Fetch Error:', error);
+          console.error('Error details:', {
+            message: error.message,
+            stack: error.stack,
+            activityType: activityType,
+            currentId: currentId
+          });
           button.disabled = false;
           button.style.opacity = '1';
-          showNotification('エラーが発生しました。もう一度お試しください。', 'error');
+          showNotification('通信エラーが発生しました。もう一度お試しください。', 'error');
         });
       } catch (error) {
         console.error('JavaScript Error:', error);
@@ -296,9 +378,21 @@
         button.style.opacity = '1';
         showNotification('JavaScriptエラーが発生しました。', 'error');
       }
-      
-      // やり直し機能
-      function handleResetAchievement(button) {
+    }
+    
+    // CSRFトークン取得関数
+    function getCSRFToken() {
+      try {
+        const metaTag = document.querySelector('meta[name="csrf-token"]');
+        return metaTag ? metaTag.getAttribute('content') : null;
+      } catch (error) {
+        console.error('Error getting CSRF token:', error);
+        return null;
+      }
+    }
+    
+    // やり直し機能
+    function handleResetAchievement(button) {
         const activityType = button.getAttribute('data-activity-type');
         const achievementSection = button.closest('.achievement-section');
         const tryAnotherButton = achievementSection.querySelector(`.${activityType}-try-another`);
@@ -308,17 +402,25 @@
         button.disabled = true;
         button.style.opacity = '0.6';
         
-        fetch('/home/reset_achievement', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-          },
-          body: JSON.stringify({
-            activity_type: activityType,
-            activity_id: currentId
-          })
+              // CSRFトークンの取得
+      const csrfToken = getCSRFToken();
+      if (!csrfToken) {
+        console.error('CSRF token not found');
+        showNotification('セキュリティエラーが発生しました。', 'error');
+        return;
+      }
+      
+      fetch('/home/reset_achievement', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify({
+          activity_type: activityType,
+          activity_id: currentId
         })
+      })
         .then(response => response.json())
         .then(data => {
           if (data.success) {
@@ -359,9 +461,10 @@
           showNotification('エラーが発生しました。もう一度お試しください。', 'error');
         });
       }
-      
-      // 別のストレッチ・呼吸法を試す機能
-      function handleTryAnother(button) {
+    }
+    
+    // 別のストレッチ・呼吸法を試す機能
+    function handleTryAnother(button) {
         const isStretch = button.classList.contains('stretch-try-another');
         const currentId = button.getAttribute(isStretch ? 'data-stretch-id' : 'data-breathing-id');
         const endpoint = isStretch ? '/home/get_another_stretch' : '/home/get_another_breathing';
@@ -448,8 +551,9 @@
           showNotification('エラーが発生しました。もう一度お試しください。', 'error');
         });
       }
-      
-      // 通知表示関数
+    }
+    
+    // 通知表示関数
     function showNotification(message, type) {
       const notification = document.createElement('div');
       notification.className = `notification ${type}`;
@@ -467,6 +571,23 @@
     function testJavaScript() {
       alert('JavaScript is working!');
       console.log('Test function called');
+      
+      // ボタンの存在確認
+      const achievementButtons = document.querySelectorAll('.achievement-button');
+      const resetButtons = document.querySelectorAll('.reset-achievement-button');
+      const tryAnotherButtons = document.querySelectorAll('.try-another-button');
+      
+      console.log('Achievement buttons found:', achievementButtons.length);
+      console.log('Reset buttons found:', resetButtons.length);
+      console.log('Try another buttons found:', tryAnotherButtons.length);
+      
+      // CSRFトークンの確認
+      const csrfToken = getCSRFToken();
+      console.log('CSRF token found:', !!csrfToken);
+      
+      // イベントリスナーの再設定
+      setupEventListeners();
+      console.log('Event listeners re-setup completed');
     }
     
     // 応援メッセージモーダル表示関数
