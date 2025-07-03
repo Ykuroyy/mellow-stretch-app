@@ -1,6 +1,6 @@
 
 // シンプルな初期化
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('turbo:load', function() {
   console.log('DOM loaded, setting up event listeners');
   setupEventListeners();
 });
