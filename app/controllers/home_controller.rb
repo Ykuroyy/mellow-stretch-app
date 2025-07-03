@@ -4,8 +4,11 @@ class HomeController < ApplicationController
     @stretch = get_todays_stretch
     @breathing = get_todays_breathing
     
-    # 今日の活動を記録
-    record_todays_activities
+    # 本番環境では今日の活動を記録しない
+    unless Rails.env.production?
+      # 今日の活動を記録
+      record_todays_activities
+    end
     
     # 過去の活動履歴を取得
     @recent_activities = get_recent_activities
