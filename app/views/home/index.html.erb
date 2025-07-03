@@ -301,6 +301,9 @@
       
       console.log('Activity Type:', activityType);
       console.log('Current ID:', currentId);
+      console.log('Achievement Section:', achievementSection);
+      console.log('Try Another Button:', tryAnotherButton);
+      console.log('All buttons in section:', achievementSection.querySelectorAll('button'));
       
       if (!activityType) {
         console.error('Activity type not found on button');
@@ -326,17 +329,20 @@
         activity_id: currentId
       });
       
+      // フォームデータとして送信（より確実）
+      const formData = new FormData();
+      formData.append('activity_type', activityType);
+      if (currentId) {
+        formData.append('activity_id', currentId);
+      }
+      
       fetch('/home/record_achievement', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'X-CSRF-Token': csrfToken,
           'Accept': 'application/json'
         },
-        body: JSON.stringify({
-          activity_type: activityType,
-          activity_id: currentId
-        })
+        body: formData
       })
         .then(response => {
           console.log('Response status:', response.status);
@@ -410,16 +416,20 @@
       return;
     }
     
+    // フォームデータとして送信（より確実）
+    const formData = new FormData();
+    formData.append('activity_type', activityType);
+    if (currentId) {
+      formData.append('activity_id', currentId);
+    }
+    
     fetch('/home/reset_achievement', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken
+        'X-CSRF-Token': csrfToken,
+        'Accept': 'application/json'
       },
-      body: JSON.stringify({
-        activity_type: activityType,
-        activity_id: currentId
-      })
+      body: formData
     })
       .then(response => response.json())
       .then(data => {
@@ -456,11 +466,31 @@
     const currentId = button.getAttribute(isStretch ? 'data-stretch-id' : 'data-breathing-id');
     const endpoint = isStretch ? '/home/get_another_stretch' : '/home/get_another_breathing';
     
+    console.log('handleTryAnother called with:', {
+      isStretch: isStretch,
+      currentId: currentId,
+      endpoint: endpoint
+    });
+    
     // ボタンを無効化
     button.disabled = true;
     button.style.opacity = '0.6';
     
-    fetch(`${endpoint}?current_id=${currentId}`)
+    // CSRFトークンの取得
+    const csrfToken = getCSRFToken();
+    if (!csrfToken) {
+      console.error('CSRF token not found');
+      showNotification('セキュリティエラーが発生しました。', 'error');
+      return;
+    }
+    
+    fetch(`${endpoint}?current_id=${currentId}`, {
+      method: 'GET',
+      headers: {
+        'X-CSRF-Token': csrfToken,
+        'Accept': 'application/json'
+      }
+    })
     .then(response => response.json())
     .then(data => {
       if (data.success) {

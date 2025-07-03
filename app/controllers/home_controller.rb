@@ -25,12 +25,15 @@ class HomeController < ApplicationController
   def record_achievement
     # パラメータからactivity_typeとactivity_idを取得
     activity_type = params[:activity_type] || params.dig(:home, :activity_type)
-    activity_id = params[:activity_id]
+    activity_id = params[:activity_id] || params.dig(:home, :activity_id)
     date = Date.current
     @today = date  # @todayを設定
     
     # デバッグログ
     Rails.logger.info "record_achievement called with activity_type: #{activity_type}, activity_id: #{activity_id}"
+    Rails.logger.info "All params: #{params.inspect}"
+    Rails.logger.info "Request format: #{request.format}"
+    Rails.logger.info "Request xhr?: #{request.xhr?}"
     
     # activity_idが指定されていない場合は、今日の活動から取得
     unless activity_id
@@ -71,7 +74,7 @@ class HomeController < ApplicationController
   def reset_achievement
     # パラメータからactivity_typeとactivity_idを取得
     activity_type = params[:activity_type] || params.dig(:home, :activity_type)
-    activity_id = params[:activity_id]
+    activity_id = params[:activity_id] || params.dig(:home, :activity_id)
     date = Date.current
     @today = date  # @todayを設定
     
@@ -102,6 +105,13 @@ class HomeController < ApplicationController
   def get_another_stretch
     # 別のストレッチを取得
     current_stretch_id = params[:current_id].to_i
+    
+    # デバッグログ
+    Rails.logger.info "get_another_stretch called with current_id: #{current_stretch_id}"
+    Rails.logger.info "All params: #{params.inspect}"
+    Rails.logger.info "Request format: #{request.format}"
+    Rails.logger.info "Request xhr?: #{request.xhr?}"
+    
     other_stretches = Stretch.where.not(id: current_stretch_id)
     new_stretch = other_stretches.sample
     
