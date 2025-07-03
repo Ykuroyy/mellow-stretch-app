@@ -46,14 +46,15 @@
           </div>
         <% else %>
           <div class="achievement-buttons">
-            <button class="achievement-button stretch-button" data-activity-type="stretch">
-              <span class="button-icon">🧘‍♀️</span>
-              <span class="button-text">ストレッチしたよ</span>
-            </button>
-            <button class="try-another-button stretch-try-another" data-stretch-id="<%= @stretch.id %>">
-              <span class="button-icon">🔄</span>
-              <span class="button-text">別のストレッチも試す</span>
-            </button>
+            <%= form_with url: home_record_achievement_path, method: :post, local: true, style: "display: inline;" do |form| %>
+              <%= form.hidden_field :activity_type, value: 'stretch' %>
+              <%= form.hidden_field :activity_id, value: @stretch.id %>
+              <%= form.submit "🧘‍♀️ ストレッチしたよ", class: "achievement-button stretch-button", style: "background: none; border: none; cursor: pointer; font-size: inherit; color: inherit;" %>
+            <% end %>
+            
+            <%= link_to "🔄 別のストレッチも試す", home_get_another_stretch_path(current_id: @stretch.id), 
+                class: "try-another-button stretch-try-another", 
+                style: "text-decoration: none; display: inline-block; margin-left: 10px;" %>
           </div>
         <% end %>
       </div>
@@ -94,14 +95,15 @@
           </div>
         <% else %>
           <div class="achievement-buttons">
-            <button class="achievement-button breathing-button" data-activity-type="breathing">
-              <span class="button-icon">💨</span>
-              <span class="button-text">呼吸したよ</span>
-            </button>
-            <button class="try-another-button breathing-try-another" data-breathing-id="<%= @breathing.id %>">
-              <span class="button-icon">🔄</span>
-              <span class="button-text">別の呼吸法も試す</span>
-            </button>
+            <%= form_with url: home_record_achievement_path, method: :post, local: true, style: "display: inline;" do |form| %>
+              <%= form.hidden_field :activity_type, value: 'breathing' %>
+              <%= form.hidden_field :activity_id, value: @breathing.id %>
+              <%= form.submit "💨 呼吸したよ", class: "achievement-button breathing-button", style: "background: none; border: none; cursor: pointer; font-size: inherit; color: inherit;" %>
+            <% end %>
+            
+            <%= link_to "🔄 別の呼吸法も試す", home_get_another_breathing_path(current_id: @breathing.id), 
+                class: "try-another-button breathing-try-another", 
+                style: "text-decoration: none; display: inline-block; margin-left: 10px;" %>
           </div>
         <% end %>
       </div>

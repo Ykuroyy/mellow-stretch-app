@@ -4,12 +4,6 @@ class HomeController < ApplicationController
     @stretch = get_todays_stretch
     @breathing = get_todays_breathing
     
-    # 本番環境では今日の活動を記録しない
-    unless Rails.env.production?
-      # 今日の活動を記録
-      record_todays_activities
-    end
-    
     # 過去の活動履歴を取得
     @recent_activities = get_recent_activities
     
@@ -55,16 +49,23 @@ class HomeController < ApplicationController
     achievement.completed = true
     achievement.save!
     
+    # UserActivityも記録（履歴用）
+    UserActivity.record_today_activity(activity_type, activity_id)
+    
     # 応援メッセージを取得
     encouragement = EncouragementMessage.random_for_category(activity_type)
     
-    # 成功メッセージを返す
-    render json: { 
-      success: true, 
-      message: "#{activity_type == 'stretch' ? 'ストレッチ' : '呼吸法'}を完了しました！",
-      completed: true,
-      encouragement_message: encouragement&.message || "今日も一日頑張りましょう！"
-    }
+    # AJAXリクエストの場合はJSONを返す、フォーム送信の場合はリダイレクト
+    if request.xhr?
+      render json: { 
+        success: true, 
+        message: "#{activity_type == 'stretch' ? 'ストレッチ' : '呼吸法'}を完了しました！",
+        completed: true,
+        encouragement_message: encouragement&.message || "今日も一日頑張りましょう！"
+      }
+    else
+      redirect_to root_path, notice: "#{activity_type == 'stretch' ? 'ストレッチ' : '呼吸法'}を完了しました！"
+    end
   end
 
   def reset_achievement
@@ -104,17 +105,24 @@ class HomeController < ApplicationController
     other_stretches = Stretch.where.not(id: current_stretch_id)
     new_stretch = other_stretches.sample
     
-    render json: {
-      success: true,
-      stretch: {
-        id: new_stretch.id,
-        name: new_stretch.name,
-        description: new_stretch.description,
-        duration: new_stretch.duration,
-        category: new_stretch.category,
-        difficulty: new_stretch.difficulty
+    # AJAXリクエストの場合はJSONを返す、通常のリンクの場合はリダイレクト
+    if request.xhr?
+      render json: {
+        success: true,
+        stretch: {
+          id: new_stretch.id,
+          name: new_stretch.name,
+          description: new_stretch.description,
+          duration: new_stretch.duration,
+          category: new_stretch.category,
+          difficulty: new_stretch.difficulty
+        }
       }
-    }
+    else
+      # セッションに新しいストレッチIDを保存
+      session[:current_stretch_id] = new_stretch.id
+      redirect_to root_path, notice: "新しいストレッチを表示しました！"
+    end
   end
 
   def get_another_breathing
@@ -123,17 +131,24 @@ class HomeController < ApplicationController
     other_breathing = BreathingExercise.where.not(id: current_breathing_id)
     new_breathing = other_breathing.sample
     
-    render json: {
-      success: true,
-      breathing: {
-        id: new_breathing.id,
-        name: new_breathing.name,
-        description: new_breathing.description,
-        duration: new_breathing.duration,
-        benefit: new_breathing.benefit,
-        technique: new_breathing.technique
+    # AJAXリクエストの場合はJSONを返す、通常のリンクの場合はリダイレクト
+    if request.xhr?
+      render json: {
+        success: true,
+        breathing: {
+          id: new_breathing.id,
+          name: new_breathing.name,
+          description: new_breathing.description,
+          duration: new_breathing.duration,
+          benefit: new_breathing.benefit,
+          technique: new_breathing.technique
+        }
       }
-    }
+    else
+      # セッションに新しい呼吸法IDを保存
+      session[:current_breathing_id] = new_breathing.id
+      redirect_to root_path, notice: "新しい呼吸法を表示しました！"
+    end
   end
 
   def encouragement
@@ -166,12 +181,26 @@ class HomeController < ApplicationController
   private
 
   def get_todays_stretch
+    # セッションに新しいストレッチIDがある場合はそれを使用
+    if session[:current_stretch_id]
+      stretch = Stretch.find_by(id: session[:current_stretch_id])
+      session.delete(:current_stretch_id) # 使用後は削除
+      return stretch if stretch
+    end
+    
     # 日付に基づいてランダムにストレッチを選択（同じ日は同じ結果）
     srand(@today.to_time.to_i)
     Stretch.all.sample
   end
 
   def get_todays_breathing
+    # セッションに新しい呼吸法IDがある場合はそれを使用
+    if session[:current_breathing_id]
+      breathing = BreathingExercise.find_by(id: session[:current_breathing_id])
+      session.delete(:current_breathing_id) # 使用後は削除
+      return breathing if breathing
+    end
+    
     # 日付に基づいてランダムに呼吸法を選択（同じ日は同じ結果）
     srand(@today.to_time.to_i + 1000) # ストレッチと異なる結果にするため
     BreathingExercise.all.sample
