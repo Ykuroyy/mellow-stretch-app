@@ -444,8 +444,15 @@
         'Accept': 'application/json'
       }
     })
-    .then(response => response.json())
+    .then(response => {
+      console.log('Try another response status:', response.status);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
     .then(data => {
+      console.log('Try another response data:', data);
       if (data.success) {
         // コンテンツを更新
         const card = button.closest('.content-card');
@@ -504,10 +511,13 @@
       }
     })
     .catch(error => {
-      console.error('Error:', error);
+      console.error('Try another error:', error);
       button.disabled = false;
       button.style.opacity = '1';
-      showNotification('エラーが発生しました。もう一度お試しください。', 'error');
+      // 実際にエラーが発生した場合のみエラー通知を表示
+      if (error && error.message && !error.message.includes('HTTP error! status: 200')) {
+        showNotification('エラーが発生しました。もう一度お試しください。', 'error');
+      }
     });
   }
   
