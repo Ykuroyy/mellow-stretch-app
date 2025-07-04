@@ -211,6 +211,7 @@
   // シンプルな初期化
   document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, setting up event listeners');
+    encouragementModalShown = false; // フラグをリセット
     setupEventListeners();
   });
   
@@ -226,6 +227,9 @@
     
     console.log('Event listeners setup completed');
   }
+  
+  // 応援メッセージモーダルの表示状態を管理
+  let encouragementModalShown = false;
   
   // グローバルクリックハンドラー
   function handleGlobalClick(event) {
@@ -337,15 +341,16 @@
         // 成功メッセージを表示
         showNotification(data.message, 'success');
         
-        // 応援メッセージを表示
+        // 応援メッセージを表示（重複防止）
         console.log('Checking for encouragement message:', data.encouragement_message);
-        if (data.encouragement_message) {
+        if (data.encouragement_message && !encouragementModalShown) {
           console.log('Showing encouragement modal with message:', data.encouragement_message);
+          encouragementModalShown = true;
           setTimeout(() => {
             showEncouragementModal(data.encouragement_message, activityType);
           }, 1000);
         } else {
-          console.log('No encouragement message found in response');
+          console.log('No encouragement message found in response or modal already shown');
         }
       }
     })
@@ -536,7 +541,7 @@
           <div class="encouragement-modal-time">${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}</div>
         </div>
         <div class="encouragement-modal-footer">
-          <button class="encouragement-modal-button" onclick="this.closest('.encouragement-modal').remove()">
+          <button class="encouragement-modal-button" onclick="closeEncouragementModal(this)">
             <span class="button-icon">💕</span>
             <span class="button-text">ありがとう！</span>
           </button>
@@ -552,6 +557,14 @@
       modal.classList.add('show');
       console.log('Modal show class added');
     }, 100);
+  }
+  
+  // 応援メッセージモーダルを閉じる関数
+  function closeEncouragementModal(button) {
+    const modal = button.closest('.encouragement-modal');
+    modal.remove();
+    encouragementModalShown = false;
+    console.log('Encouragement modal closed, flag reset');
   }
 </script>
 
