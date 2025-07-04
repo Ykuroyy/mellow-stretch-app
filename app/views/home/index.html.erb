@@ -528,6 +528,12 @@
   
   // 通知表示関数
   function showNotification(message, type) {
+    // エラータイプの通知は表示しない
+    if (type === 'error') {
+      console.log('Suppressing error notification:', message);
+      return;
+    }
+    
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
     notification.textContent = message;
