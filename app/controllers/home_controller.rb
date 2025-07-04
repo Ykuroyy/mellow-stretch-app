@@ -59,7 +59,7 @@ class HomeController < ApplicationController
     encouragement = EncouragementMessage.random_for_category(activity_type)
     
     # AJAXリクエストの場合はJSONを返す、フォーム送信の場合はリダイレクト
-    if request.xhr?
+    if request.xhr? || request.format.json? || request.headers['Accept']&.include?('application/json')
       render json: { 
         success: true, 
         message: "#{activity_type == 'stretch' ? 'ストレッチ' : '呼吸法'}を完了しました！",
@@ -116,7 +116,7 @@ class HomeController < ApplicationController
     new_stretch = other_stretches.sample
     
     # AJAXリクエストの場合はJSONを返す、通常のリンクの場合はリダイレクト
-    if request.xhr?
+    if request.xhr? || request.format.json? || request.headers['Accept']&.include?('application/json')
       render json: {
         success: true,
         stretch: {
@@ -142,7 +142,7 @@ class HomeController < ApplicationController
     new_breathing = other_breathing.sample
     
     # AJAXリクエストの場合はJSONを返す、通常のリンクの場合はリダイレクト
-    if request.xhr?
+    if request.xhr? || request.format.json? || request.headers['Accept']&.include?('application/json')
       render json: {
         success: true,
         breathing: {
