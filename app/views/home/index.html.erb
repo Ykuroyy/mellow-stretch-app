@@ -276,7 +276,7 @@
     
     if (!activityType) {
       console.error('Activity type not found on button');
-      showNotification('ボタンの設定エラーが発生しました。', 'error');
+      // showNotification('ボタンの設定エラーが発生しました。', 'error');
       return;
     }
     
@@ -284,7 +284,7 @@
     const csrfToken = getCSRFToken();
     if (!csrfToken) {
       console.error('CSRF token not found');
-      showNotification('セキュリティエラーが発生しました。', 'error');
+      // showNotification('セキュリティエラーが発生しました。', 'error');
       return;
     }
     
@@ -358,7 +358,7 @@
       console.error('Fetch Error:', error);
       button.disabled = false;
       button.style.opacity = '1';
-      showNotification('通信エラーが発生しました。もう一度お試しください。', 'error');
+      // showNotification('通信エラーが発生しました。もう一度お試しください。', 'error');
     });
   }
   
@@ -377,7 +377,7 @@
     const csrfToken = getCSRFToken();
     if (!csrfToken) {
       console.error('CSRF token not found');
-      showNotification('セキュリティエラーが発生しました。', 'error');
+      // showNotification('セキュリティエラーが発生しました。', 'error');
       return;
     }
     
@@ -422,7 +422,7 @@
       console.error('Error:', error);
       button.disabled = false;
       button.style.opacity = '1';
-      showNotification('エラーが発生しました。もう一度お試しください。', 'error');
+      // showNotification('エラーが発生しました。もう一度お試しください。', 'error');
     });
   }
   
